@@ -1,28 +1,29 @@
 'use strict';
 
 var AD_NUMBER = 8;
+var ADDRESS_X = 600;
+var ADDRESS_Y = 350;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
 var renderPin = function (pin) {
-  var PinElement = pinTemplate.cloneNode(true);
+  var pinElement = pinTemplate.cloneNode(true);
+  var imgElement = pinElement.querySelector('img');
 
-  PinElement.style.left = (pin.location.x - 25) + 'px';
-  PinElement.style.top = (pin.location.y - 70) + 'px';
-  PinElement.querySelector('img').src = pin.author.avatar;
-  PinElement.querySelector('img').alt = pin.offer.title;
+  pinElement.style.left = (pin.location.x - 25) + 'px';
+  pinElement.style.top = (pin.location.y - 70) + 'px';
+  imgElement.src = pin.author.avatar;
+  imgElement.alt = pin.offer.title;
 
-  return PinElement;
+  return pinElement;
 };
 
 var map = document.querySelector('.map');
 var mapDomRect = map.getBoundingClientRect();
 
 var ads = [];
-var addressX = 600;
-var addressY = 350;
 
 for (var i = 0; i < AD_NUMBER; i++) {
   var ad = {
@@ -32,7 +33,7 @@ for (var i = 0; i < AD_NUMBER; i++) {
 
     offer: {
       title: 'text',
-      address: addressX + ', ' + addressY,
+      address: ADDRESS_X + ', ' + ADDRESS_Y,
       price: 'int',
       type: 'palace, flat, house или bungalo',
       rooms: 'int',
@@ -50,7 +51,7 @@ for (var i = 0; i < AD_NUMBER; i++) {
     }
   };
 
-  ads[i] = ad;
+  ads.push(ad);
 }
 
 map.classList.remove('map--faded');
