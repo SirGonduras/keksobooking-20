@@ -20,14 +20,12 @@ var renderPin = function (pin) {
   return pinElement;
 };
 
-var createPhotosElements = function (card) {
+var createPhotosElements = function (card, arrayElement) {
   var photosFragment = document.createDocumentFragment();
   var popupPhotoItem = popupPhoto.cloneNode(true);
 
-  card.offer.photos.forEach(function (item) {
-    popupPhotoItem.src = item;
-    photosFragment.appendChild(popupPhotoItem);
-  });
+  popupPhotoItem.src = arrayElement;
+  photosFragment.appendChild(popupPhotoItem);
 
   return photosFragment;
 };
@@ -35,8 +33,8 @@ var createPhotosElements = function (card) {
 var renderCard = function (card) {
   var cardElement = cardTemplate.cloneNode(true);
 
-  var photosDiv = cardElement.querySelectorAll('.popup__photos');
-  var photo = cardElement.querySelectorAll('.popup__photo');
+  var photosDiv = cardElement.querySelector('.popup__photos');
+  var photo = cardElement.querySelector('.popup__photo');
 
   cardElement.querySelector('.popup__title').innerText = card.offer.title;
   cardElement.querySelector('.popup__text--address').innerText = card.offer.address;
@@ -48,20 +46,14 @@ var renderCard = function (card) {
   cardElement.querySelector('.popup__description').innerText = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-  // photosDiv.removeChild(photo);
-  photosDiv.appendChild(createPhotosElements(card));
+  photosDiv.removeChild(photo);
+
+  card.offer.photos.forEach(function (item) {
+    photosDiv.appendChild(createPhotosElements(card, item));
+  });
 
   return cardElement;
 };
-
-// var renderCardPhoto = function (addres) {
-//   var cardElement = cardTemplate.cloneNode(true);
-//   var imgHotelElement = cardElement.querySelector('.popup__photo');
-
-//   imgHotelElement.src = addres;
-
-//   return cardElement;
-// };
 
 var map = document.querySelector('.map');
 var mapDomRect = map.getBoundingClientRect();
@@ -103,7 +95,7 @@ var mapPinsElement = map.querySelector('.map__pins');
 var mapFiltersElement = map.querySelector('.map__filters-container');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-var popupPhoto = cardTemplate.content.querySelector('.popup__photo');
+var popupPhoto = cardTemplate.querySelector('.popup__photo');
 
 var mapPinFragment = document.createDocumentFragment();
 var mapFilterFragment = document.createDocumentFragment();
@@ -113,12 +105,6 @@ ads.forEach(function (item) {
 });
 
 mapFilterFragment.appendChild(renderCard(ads[0]));
-
-// // console.log(ads[0].offer.photos);
-// ads[0].offer.photos.forEach(function (item) {
-//   console.log(item);
-//   mapFilterFragment.appendChild(renderCardPhoto(item));
-// });
 
 mapPinsElement.appendChild(mapPinFragment);
 mapFiltersElement.appendChild(mapFilterFragment);
