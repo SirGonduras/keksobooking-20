@@ -89,8 +89,6 @@ for (var i = 0; i < AD_NUMBER; i++) {
   ads.push(ad);
 }
 
-map.classList.remove('map--faded');
-
 var mapPinsElement = map.querySelector('.map__pins');
 var mapFiltersElement = map.querySelector('.map__filters-container');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -100,11 +98,16 @@ var popupPhoto = cardTemplate.querySelector('.popup__photo');
 var mapPinFragment = document.createDocumentFragment();
 var mapFilterFragment = document.createDocumentFragment();
 
-ads.forEach(function (item) {
-  mapPinFragment.appendChild(renderPin(item));
-});
+var fieldsets = document.querySelectorAll('fieldset');
 
-mapFilterFragment.appendChild(renderCard(ads[0]));
+fieldsets.forEach(function (item) {
+  item.setAttribute('disabled', 'true');
+});
+// ads.forEach(function (item) {
+//   mapPinFragment.appendChild(renderPin(item));
+// });
+
+// mapFilterFragment.appendChild(renderCard(ads[0]));
 
 mapPinsElement.appendChild(mapPinFragment);
 mapFiltersElement.appendChild(mapFilterFragment);
