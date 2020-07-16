@@ -55,10 +55,16 @@ var renderCard = function (card) {
   return cardElement;
 };
 
-var map = document.querySelector('.map');
-var mapDomRect = map.getBoundingClientRect();
+var activatePage = function () {
+  fieldsets.forEach(function (item) {
+    item.removeAttribute('disabled');
+  });
+  map.classList.remove('map--faded');
+};
 
 var ads = [];
+var map = document.querySelector('.map');
+var mapDomRect = map.getBoundingClientRect();
 
 for (var i = 0; i < AD_NUMBER; i++) {
   var ad = {
@@ -89,8 +95,22 @@ for (var i = 0; i < AD_NUMBER; i++) {
   ads.push(ad);
 }
 
+var mapPinMain = document.querySelector('.map__pin--main');
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    activatePage();
+  }
+});
+
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activatePage();
+  }
+});
+
 var mapPinsElement = map.querySelector('.map__pins');
 var mapFiltersElement = map.querySelector('.map__filters-container');
+
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var popupPhoto = cardTemplate.querySelector('.popup__photo');
