@@ -5,6 +5,7 @@ var ADDRESS_X = 600;
 var ADDRESS_Y = 350;
 var MIN_LENGTH_TITLE = 30;
 var MAX_LENGTH_TITLE = 100;
+var MAX_PRICE = 1000000;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -117,7 +118,7 @@ var fieldsets = document.querySelectorAll('fieldset');
 var form = document.querySelector('.ad-form');
 var addressInput = form.querySelector('#address');
 var titleInput = form.querySelector('#title');
-
+var priceInput = form.querySelector('#price');
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
@@ -140,10 +141,6 @@ titleInput.addEventListener('invalid', function () {
   }
 });
 
-// titleInput.addEventListener('change', function (evt) {
-
-// });
-
 titleInput.addEventListener('input', function () {
   var valueLength = titleInput.value.length;
 
@@ -153,6 +150,23 @@ titleInput.addEventListener('input', function () {
     titleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_LENGTH_TITLE) + ' симв.');
   } else {
     titleInput.setCustomValidity('');
+  }
+});
+
+priceInput.addEventListener('invalid', function () {
+  if (priceInput.validity.valueMissing) {
+    priceInput.setCustomValidity('Обязательное поле hi');
+  } else {
+    priceInput.setCustomValidity('');
+  }
+});
+
+priceInput.addEventListener('input', function () {
+  var priceValue = priceInput.value;
+  if (priceValue > MAX_PRICE) {
+    priceInput.setCustomValidity('Цена не может превышать ' + MAX_PRICE);
+  } else {
+    priceInput.setCustomValidity('');
   }
 });
 
