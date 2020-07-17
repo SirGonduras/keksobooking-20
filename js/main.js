@@ -3,6 +3,8 @@
 var AD_NUMBER = 8;
 var ADDRESS_X = 600;
 var ADDRESS_Y = 350;
+var MIN_LENGTH_TITLE = 30;
+var MAX_LENGTH_TITLE = 100;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -63,8 +65,6 @@ var activatePage = function () {
 };
 
 var typeAddress = function (item) {
-  var addressInput = document.querySelector('#address');
-
   addressInput.value = item.location.x + ', ' + item.location.y;
 };
 
@@ -102,6 +102,23 @@ for (var i = 0; i < AD_NUMBER; i++) {
 }
 
 var mapPinMain = document.querySelector('.map__pin--main');
+var mapPinsElement = map.querySelector('.map__pins');
+var mapFiltersElement = map.querySelector('.map__filters-container');
+
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+var popupPhoto = cardTemplate.querySelector('.popup__photo');
+
+var mapPinFragment = document.createDocumentFragment();
+var mapFilterFragment = document.createDocumentFragment();
+
+var fieldsets = document.querySelectorAll('fieldset');
+
+var form = document.querySelector('.ad-form');
+var addressInput = form.querySelector('#address');
+var titleInput = form.querySelector('#title');
+
+
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     activatePage();
@@ -115,17 +132,29 @@ mapPinMain.addEventListener('keydown', function (evt) {
   }
 });
 
-var mapPinsElement = map.querySelector('.map__pins');
-var mapFiltersElement = map.querySelector('.map__filters-container');
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
 
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-var popupPhoto = cardTemplate.querySelector('.popup__photo');
+// titleInput.addEventListener('change', function (evt) {
 
-var mapPinFragment = document.createDocumentFragment();
-var mapFilterFragment = document.createDocumentFragment();
+// });
 
-var fieldsets = document.querySelectorAll('fieldset');
+titleInput.addEventListener('input', function () {
+  var valueLength = titleInput.value.length;
+
+  if (valueLength < MIN_LENGTH_TITLE) {
+    titleInput.setCustomValidity('Ещё ' + (MIN_LENGTH_TITLE - valueLength) + ' симв.');
+  } else if (valueLength > MAX_LENGTH_TITLE) {
+    titleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_LENGTH_TITLE) + ' симв.');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
 
 fieldsets.forEach(function (item) {
   item.setAttribute('disabled', 'true');
