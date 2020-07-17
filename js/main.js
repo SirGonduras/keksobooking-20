@@ -62,6 +62,12 @@ var activatePage = function () {
   map.classList.remove('map--faded');
 };
 
+var typeAddress = function (item) {
+  var addressInput = document.querySelector('#address');
+
+  addressInput.value = item.location.x + ', ' + item.location.y;
+};
+
 var ads = [];
 var map = document.querySelector('.map');
 var mapDomRect = map.getBoundingClientRect();
@@ -99,6 +105,7 @@ var mapPinMain = document.querySelector('.map__pin--main');
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     activatePage();
+    typeAddress(ads[0]);
   }
 });
 
@@ -123,6 +130,8 @@ var fieldsets = document.querySelectorAll('fieldset');
 fieldsets.forEach(function (item) {
   item.setAttribute('disabled', 'true');
 });
+
+typeAddress(ads[0]);
 // ads.forEach(function (item) {
 //   mapPinFragment.appendChild(renderPin(item));
 // });
