@@ -1,11 +1,18 @@
 'use strict';
 
+var ARRAY_TYPE_HOUSING = ['bungalo', 'flat', 'house', 'palace'];
+var ARRAY_TIME = [' 12:00', '13:00', '14:00'];
+
 var AD_NUMBER = 8;
 var ADDRESS_X = 600;
 var ADDRESS_Y = 350;
 var MIN_LENGTH_TITLE = 30;
 var MAX_LENGTH_TITLE = 100;
 var MAX_PRICE = 1000000;
+var MIN_BUNGALOW_PRICE = 0;
+var MIN_FLAT_PRICE = 1000;
+var MIN_HOUSE_PRICE = 5000;
+var MIN_PALACE_PRICE = 10000;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -69,38 +76,51 @@ var typeAddress = function (item) {
   addressInput.value = item.location.x + ', ' + item.location.y;
 };
 
+var setMinPrice = function () {
+  switch (homeTypeSelect.value) {
+    case 'bungalo':
+      priceInput.min = MIN_BUNGALOW_PRICE;
+      break;
+    case 'flat':
+      priceInput.min = MIN_FLAT_PRICE;
+      break;
+
+    case 'house':
+      priceInput.min = MIN_HOUSE_PRICE;
+      break;
+
+    case 'palace':
+      priceInput.min = MIN_PALACE_PRICE;
+      break;
+  }
+};
+
+var getMinPrice = function (homeType) {
+  var minPrice = 0;
+
+  switch (homeType) {
+    case 'bungalo':
+      minPrice = MIN_BUNGALOW_PRICE;
+      break;
+    case 'flat':
+      minPrice = MIN_FLAT_PRICE;
+      break;
+
+    case 'house':
+      minPrice = MIN_HOUSE_PRICE;
+      break;
+
+    case 'palace':
+      minPrice = MIN_PALACE_PRICE;
+      break;
+  }
+
+  return minPrice;
+};
+
 var ads = [];
 var map = document.querySelector('.map');
 var mapDomRect = map.getBoundingClientRect();
-
-for (var i = 0; i < AD_NUMBER; i++) {
-  var ad = {
-    author: {
-      avatar: 'img/avatars/user0' + (i + 1) + '.png'
-    },
-
-    offer: {
-      title: 'text',
-      address: ADDRESS_X + ', ' + ADDRESS_Y,
-      price: 'int',
-      type: 'palace, flat, house или bungalo',
-      rooms: 'int',
-      guests: 'int',
-      checkin: '12:00, 13:00 или 14:00',
-      checkout: '12:00, 13:00 или 14:00',
-      features: '"wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"',
-      description: 'text',
-      photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'],
-    },
-
-    location: {
-      x: getRandomNumber(0, mapDomRect.width),
-      y: getRandomNumber(130, 630)
-    }
-  };
-
-  ads.push(ad);
-}
 
 var mapPinMain = document.querySelector('.map__pin--main');
 var mapPinsElement = map.querySelector('.map__pins');
@@ -119,6 +139,37 @@ var form = document.querySelector('.ad-form');
 var addressInput = form.querySelector('#address');
 var titleInput = form.querySelector('#title');
 var priceInput = form.querySelector('#price');
+var homeTypeSelect = form.querySelector('#type');
+
+for (var i = 0; i < AD_NUMBER; i++) {
+  var ad = {
+    author: {
+      avatar: 'img/avatars/user0' + (i + 1) + '.png'
+    },
+
+    offer: {
+      title: 'Милая, уютная квартирка в центре Токио',
+      address: ADDRESS_X + ', ' + ADDRESS_Y,
+      type: ARRAY_TYPE_HOUSING[getRandomNumber(0, ARRAY_TYPE_HOUSING.length)],
+      price: 0,
+      rooms: '3',
+      guests: '3',
+      checkin: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
+      checkout: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
+      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+      description: 'Токио вас ждет',
+      photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'],
+    },
+
+    location: {
+      x: getRandomNumber(0, mapDomRect.width),
+      y: getRandomNumber(130, 630)
+    }
+  };
+
+  ad.offer.price = getRandomNumber(getMinPrice(ad.offer.type), 11000);
+  ads.push(ad);
+}
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
@@ -153,9 +204,13 @@ titleInput.addEventListener('input', function () {
   }
 });
 
+homeTypeSelect.addEventListener('change', function () {
+  setMinPrice();
+});
+
 priceInput.addEventListener('invalid', function () {
   if (priceInput.validity.valueMissing) {
-    priceInput.setCustomValidity('Обязательное поле hi');
+    priceInput.setCustomValidity('Обязательное поле');
   } else {
     priceInput.setCustomValidity('');
   }
@@ -165,6 +220,14 @@ priceInput.addEventListener('input', function () {
   var priceValue = priceInput.value;
   if (priceValue > MAX_PRICE) {
     priceInput.setCustomValidity('Цена не может превышать ' + MAX_PRICE);
+  } else if (homeTypeSelect.value === 'bungalo' && priceValue < MIN_BUNGALOW_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_BUNGALOW_PRICE);
+  } else if (homeTypeSelect.value === 'flat' && priceValue < MIN_FLAT_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_FLAT_PRICE);
+  } else if (homeTypeSelect.value === 'house' && priceValue < MIN_HOUSE_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_HOUSE_PRICE);
+  } else if (homeTypeSelect.value === 'palace' && priceValue < MIN_PALACE_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_PALACE_PRICE);
   } else {
     priceInput.setCustomValidity('');
   }
@@ -175,6 +238,7 @@ fieldsets.forEach(function (item) {
 });
 
 typeAddress(ads[0]);
+setMinPrice();
 // ads.forEach(function (item) {
 //   mapPinFragment.appendChild(renderPin(item));
 // });
