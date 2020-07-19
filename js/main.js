@@ -9,3 +9,14 @@
     getRandomNumber: getRandomNumber
   };
 })();
+
+// (function () {
+//   //  Consants
+
+//   //  Functions
+
+//   // Variables
+
+//   // Code
+
+// })();

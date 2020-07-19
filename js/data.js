@@ -16,18 +16,6 @@
   var MIN_HOUSE_PRICE = 5000;
   var MIN_PALACE_PRICE = 10000;
 
-  window.data = {
-    ADDRESS_X: ADDRESS_X,
-    ADDRESS_Y: ADDRESS_Y,
-    MIN_LENGTH_TITLE: MIN_LENGTH_TITLE,
-    MAX_LENGTH_TITLE: MAX_LENGTH_TITLE,
-    MAX_PRICE: MAX_PRICE,
-    MIN_BUNGALOW_PRICE: MIN_BUNGALOW_PRICE,
-    MIN_FLAT_PRICE: MIN_FLAT_PRICE,
-    MIN_HOUSE_PRICE: MIN_HOUSE_PRICE,
-    MIN_PALACE_PRICE: MIN_PALACE_PRICE
-  };
-
   //  Functions
   var getMinPrice = function (homeType) {
     var minPrice = 0;
@@ -55,7 +43,35 @@
   // Variables
   var map = document.querySelector('.map');
   var mapDomRect = map.getBoundingClientRect();
+
+  var mapPinMain = document.querySelector('.map__pin--main');
+
+  var form = document.querySelector('.ad-form');
+  var addressInput = form.querySelector('#address');
+  var titleInput = form.querySelector('#title');
+  var priceInput = form.querySelector('#price');
+  var homeTypeSelect = form.querySelector('#type');
   var ads = [];
+
+  window.data = {
+    ADDRESS_X: ADDRESS_X,
+    ADDRESS_Y: ADDRESS_Y,
+    MIN_LENGTH_TITLE: MIN_LENGTH_TITLE,
+    MAX_LENGTH_TITLE: MAX_LENGTH_TITLE,
+    MAX_PRICE: MAX_PRICE,
+    MIN_BUNGALOW_PRICE: MIN_BUNGALOW_PRICE,
+    MIN_FLAT_PRICE: MIN_FLAT_PRICE,
+    MIN_HOUSE_PRICE: MIN_HOUSE_PRICE,
+    MIN_PALACE_PRICE: MIN_PALACE_PRICE,
+    form: form,
+    addressInput: addressInput,
+    titleInput: titleInput,
+    priceInput: priceInput,
+    homeTypeSelect: homeTypeSelect,
+    mapPinMain: mapPinMain,
+    map: map,
+    ads: ads
+  };
 
   // Code
   for (var i = 0; i < AD_NUMBER; i++) {

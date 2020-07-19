@@ -253,6 +253,8 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     activatePage();
+    typeAddress(ads[0]);
+    renderPins();
   }
 });
 
