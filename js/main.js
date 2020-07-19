@@ -207,6 +207,11 @@ var titleInput = form.querySelector('#title');
 var priceInput = form.querySelector('#price');
 var homeTypeSelect = form.querySelector('#type');
 
+var timeInputFieldset = form.querySelector('.ad-form__element--time');
+
+var timeInSelect = timeInputFieldset.querySelector('.timein');
+var timeOutSelect = timeInputFieldset.querySelector('.timeout');
+
 for (var i = 0; i < AD_NUMBER; i++) {
   var ad = {
     author: {
@@ -298,6 +303,16 @@ priceInput.addEventListener('input', function () {
     priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_PALACE_PRICE);
   } else {
     priceInput.setCustomValidity('');
+  }
+});
+
+timeInputFieldset.addEventListener('change', function (evt) {
+  if (evt.target.matches('select')) {
+    var indexSelect = evt.target.selectedIndex;
+
+    timeInSelect.selectedIndex = indexSelect;
+    timeOutSelect.selectedIndex = indexSelect;
+
   }
 });
 
