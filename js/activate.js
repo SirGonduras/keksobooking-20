@@ -49,7 +49,7 @@
     if (evt.button === 0) {
       activatePage();
       typeAddress(window.data.ads[0]);
-      // renderPins();
+      window.pins.renderPins();
     }
   });
 
@@ -57,7 +57,7 @@
     if (evt.key === 'Enter') {
       activatePage();
       typeAddress(window.data.ads[0]);
-      // renderPins();
+      window.pins.renderPins();
     }
   });
 })();
