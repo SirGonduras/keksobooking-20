@@ -2,6 +2,7 @@
 
 var ARRAY_TYPE_HOUSING = ['bungalo', 'flat', 'house', 'palace'];
 var ARRAY_TIME = [' 12:00', '13:00', '14:00'];
+var ARRAT_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 var AD_NUMBER = 8;
 var ADDRESS_X = 600;
@@ -16,6 +17,16 @@ var MIN_PALACE_PRICE = 10000;
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+var getRandomArray = function (arrayIn) {
+  var arrayOut = [];
+  var len = getRandomNumber(1, arrayIn.length);
+
+  for (var i = 0; i < len; i++) {
+    arrayOut[i] = ARRAT_FEATURES[i];
+  }
+  return arrayOut;
 };
 
 var renderPin = function (pin, index) {
@@ -227,7 +238,7 @@ for (var i = 0; i < AD_NUMBER; i++) {
       guests: '3',
       checkin: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
       checkout: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+      features: getRandomArray(ARRAT_FEATURES),
       description: 'Токио вас ждет',
       photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'],
     },
