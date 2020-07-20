@@ -52,6 +52,4 @@
   window.pins = {
     renderPins: renderPins
   };
-  // Code
-
 })();

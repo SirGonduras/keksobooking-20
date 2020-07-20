@@ -36,6 +36,10 @@
   // Variables
   var fieldsets = document.querySelectorAll('fieldset');
 
+  window.activate = {
+    setMinPrice: setMinPrice
+  };
+
   // Code
   fieldsets.forEach(function (item) {
     item.setAttribute('disabled', 'true');

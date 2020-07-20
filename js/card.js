@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  //  Consants
-
   //  Functions
   var createPhotosElements = function (card, arrayElement) {
     var photosFragment = document.createDocumentFragment();
@@ -75,6 +73,7 @@
     document.addEventListener('keydown', onPopupEscPress);
     setupClose.addEventListener('click', closePopupClick);
   };
+
   // Variables
   var mapFilterFragment = document.createDocumentFragment();
   var mapFiltersElement = window.data.map.querySelector('.map__filters-container');
@@ -84,6 +83,4 @@
   window.card = {
     openPopupCard: openPopupCard
   };
-  // Code
-
 })();

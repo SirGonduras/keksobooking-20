@@ -10,13 +10,3 @@
   };
 })();
 
-// (function () {
-//   //  Consants
-
-//   //  Functions
-
-//   // Variables
-
-//   // Code
-
-// })();
