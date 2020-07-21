@@ -2,11 +2,17 @@
 
 var ARRAY_TYPE_HOUSING = ['bungalo', 'flat', 'house', 'palace'];
 var ARRAY_TIME = [' 12:00', '13:00', '14:00'];
-var ARRAT_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 var AD_NUMBER = 8;
 var ADDRESS_X = 600;
 var ADDRESS_Y = 350;
+var MIN_LENGTH_TITLE = 30;
+var MAX_LENGTH_TITLE = 100;
+var MAX_PRICE = 1000000;
+var MIN_BUNGALOW_PRICE = 0;
+var MIN_FLAT_PRICE = 1000;
+var MIN_HOUSE_PRICE = 5000;
+var MIN_PALACE_PRICE = 10000;
 
 var MIN_BUNGALOW_PRICE = 0;
 var MIN_FLAT_PRICE = 1000;
@@ -106,10 +112,81 @@ var renderCard = function (card) {
   return cardElement;
 };
 
+var activatePage = function () {
+  fieldsets.forEach(function (item) {
+    item.removeAttribute('disabled');
+  });
+  map.classList.remove('map--faded');
+};
+
+var typeAddress = function (item) {
+  addressInput.value = item.location.x + ', ' + item.location.y;
+};
+
+var setMinPrice = function () {
+  switch (homeTypeSelect.value) {
+    case 'bungalo':
+      priceInput.min = MIN_BUNGALOW_PRICE;
+      break;
+    case 'flat':
+      priceInput.min = MIN_FLAT_PRICE;
+      break;
+
+    case 'house':
+      priceInput.min = MIN_HOUSE_PRICE;
+      break;
+
+    case 'palace':
+      priceInput.min = MIN_PALACE_PRICE;
+      break;
+  }
+};
+
+var getMinPrice = function (homeType) {
+  var minPrice = 0;
+
+  switch (homeType) {
+    case 'bungalo':
+      minPrice = MIN_BUNGALOW_PRICE;
+      break;
+    case 'flat':
+      minPrice = MIN_FLAT_PRICE;
+      break;
+
+    case 'house':
+      minPrice = MIN_HOUSE_PRICE;
+      break;
+
+    case 'palace':
+      minPrice = MIN_PALACE_PRICE;
+      break;
+  }
+
+  return minPrice;
+};
+
+var ads = [];
 var map = document.querySelector('.map');
 var mapDomRect = map.getBoundingClientRect();
 
-var ads = [];
+var mapPinMain = document.querySelector('.map__pin--main');
+var mapPinsElement = map.querySelector('.map__pins');
+var mapFiltersElement = map.querySelector('.map__filters-container');
+
+var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+var popupPhoto = cardTemplate.querySelector('.popup__photo');
+
+var mapPinFragment = document.createDocumentFragment();
+var mapFilterFragment = document.createDocumentFragment();
+
+var fieldsets = document.querySelectorAll('fieldset');
+
+var form = document.querySelector('.ad-form');
+var addressInput = form.querySelector('#address');
+var titleInput = form.querySelector('#title');
+var priceInput = form.querySelector('#price');
+var homeTypeSelect = form.querySelector('#type');
 
 for (var i = 0; i < AD_NUMBER; i++) {
   var ad = {
@@ -126,7 +203,7 @@ for (var i = 0; i < AD_NUMBER; i++) {
       guests: '3',
       checkin: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
       checkout: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
-      features: getRandomArray(ARRAT_FEATURES),
+      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
       description: 'Токио вас ждет',
       photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'],
     },
@@ -141,16 +218,74 @@ for (var i = 0; i < AD_NUMBER; i++) {
   ads.push(ad);
 }
 
-map.classList.remove('map--faded');
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === 0) {
+    activatePage();
+    typeAddress(ads[0]);
+  }
+});
 
-var mapPinsElement = map.querySelector('.map__pins');
-var mapFiltersElement = map.querySelector('.map__filters-container');
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-var popupPhoto = cardTemplate.querySelector('.popup__photo');
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activatePage();
+  }
+});
 
-var mapPinFragment = document.createDocumentFragment();
-var mapFilterFragment = document.createDocumentFragment();
+titleInput.addEventListener('invalid', function () {
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Обязательное поле');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+titleInput.addEventListener('input', function () {
+  var valueLength = titleInput.value.length;
+
+  if (valueLength < MIN_LENGTH_TITLE) {
+    titleInput.setCustomValidity('Ещё ' + (MIN_LENGTH_TITLE - valueLength) + ' симв.');
+  } else if (valueLength > MAX_LENGTH_TITLE) {
+    titleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_LENGTH_TITLE) + ' симв.');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+});
+
+homeTypeSelect.addEventListener('change', function () {
+  setMinPrice();
+});
+
+priceInput.addEventListener('invalid', function () {
+  if (priceInput.validity.valueMissing) {
+    priceInput.setCustomValidity('Обязательное поле');
+  } else {
+    priceInput.setCustomValidity('');
+  }
+});
+
+priceInput.addEventListener('input', function () {
+  var priceValue = priceInput.value;
+  if (priceValue > MAX_PRICE) {
+    priceInput.setCustomValidity('Цена не может превышать ' + MAX_PRICE);
+  } else if (homeTypeSelect.value === 'bungalo' && priceValue < MIN_BUNGALOW_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_BUNGALOW_PRICE);
+  } else if (homeTypeSelect.value === 'flat' && priceValue < MIN_FLAT_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_FLAT_PRICE);
+  } else if (homeTypeSelect.value === 'house' && priceValue < MIN_HOUSE_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_HOUSE_PRICE);
+  } else if (homeTypeSelect.value === 'palace' && priceValue < MIN_PALACE_PRICE) {
+    priceInput.setCustomValidity('Цена не может быть меньше ' + MIN_PALACE_PRICE);
+  } else {
+    priceInput.setCustomValidity('');
+  }
+});
+
+fieldsets.forEach(function (item) {
+  item.setAttribute('disabled', 'true');
+});
+
+typeAddress(ads[0]);
+setMinPrice();
 ads.forEach(function (item) {
   mapPinFragment.appendChild(renderPin(item));
 });
