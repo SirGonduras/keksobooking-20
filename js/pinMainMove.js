@@ -25,8 +25,23 @@
         y: moveEvt.clientY
       };
 
-      window.data.mapPinMain.style.top = (window.data.mapPinMain.offsetTop - shift.y) + 'px';
-      window.data.mapPinMain.style.left = (window.data.mapPinMain.offsetLeft - shift.x) + 'px';
+      var moveX = window.data.mapPinMain.offsetLeft - shift.x;
+      var moveY = window.data.mapPinMain.offsetTop - shift.y;
+
+      if (moveX < -32) {
+        moveX = -32;
+      } else if (moveX > 1167) {
+        moveX = 1167;
+      }
+
+      if (moveY < 0) {
+        moveY = 0;
+      } else if (moveY > 620) {
+        moveY = 620;
+      }
+
+      window.data.mapPinMain.style.left = moveX + 'px';
+      window.data.mapPinMain.style.top = moveY + 'px';
     };
 
     var onMouseUp = function (upEvt) {
