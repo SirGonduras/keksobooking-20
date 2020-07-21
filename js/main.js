@@ -14,6 +14,44 @@ var MIN_FLAT_PRICE = 1000;
 var MIN_HOUSE_PRICE = 5000;
 var MIN_PALACE_PRICE = 10000;
 
+var MIN_BUNGALOW_PRICE = 0;
+var MIN_FLAT_PRICE = 1000;
+var MIN_HOUSE_PRICE = 5000;
+var MIN_PALACE_PRICE = 10000;
+
+var getMinPrice = function (homeType) {
+  var minPrice = 0;
+
+  switch (homeType) {
+    case 'bungalo':
+      minPrice = MIN_BUNGALOW_PRICE;
+      break;
+    case 'flat':
+      minPrice = MIN_FLAT_PRICE;
+      break;
+
+    case 'house':
+      minPrice = MIN_HOUSE_PRICE;
+      break;
+
+    case 'palace':
+      minPrice = MIN_PALACE_PRICE;
+      break;
+  }
+
+  return minPrice;
+};
+
+var getRandomArray = function (arrayIn) {
+  var arrayOut = [];
+  var len = getRandomNumber(1, arrayIn.length);
+
+  for (var i = 0; i < len; i++) {
+    arrayOut[i] = ARRAT_FEATURES[i];
+  }
+  return arrayOut;
+};
+
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -40,6 +78,16 @@ var createPhotosElements = function (card, arrayElement) {
   return photosFragment;
 };
 
+var showpopupFeats = function (arrayElement) {
+  arrayElement.offer.features.forEach(function (featureElement) {
+    ARRAT_FEATURES.forEach(function (featureConstElement, index) {
+      if (featureConstElement.includes(featureElement)) {
+        popupFeatures[index].classList.remove('popup__feature--hiden');
+      }
+    });
+  });
+};
+
 var renderCard = function (card) {
   var cardElement = cardTemplate.cloneNode(true);
 
@@ -52,7 +100,6 @@ var renderCard = function (card) {
   cardElement.querySelector('.popup__type').innerText = card.offer.type;
   cardElement.querySelector('.popup__text--capacity').innerText = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-  cardElement.querySelector('.popup__features').innerText = card.offer.features;
   cardElement.querySelector('.popup__description').innerText = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
@@ -247,3 +294,7 @@ mapFilterFragment.appendChild(renderCard(ads[0]));
 
 mapPinsElement.appendChild(mapPinFragment);
 mapFiltersElement.appendChild(mapFilterFragment);
+
+var popupFeatures = document.querySelectorAll('.popup__feature');
+
+showpopupFeats(ads[0]);
