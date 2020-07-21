@@ -15,6 +15,18 @@ var MIN_FLAT_PRICE = 1000;
 var MIN_HOUSE_PRICE = 5000;
 var MIN_PALACE_PRICE = 10000;
 
+var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
+  console.log(popupFeaturesEllement);
+
+  arrayElement.offer.features.forEach(function (featureElement) {
+    ARRAT_FEATURES.forEach(function (featureConstElement, index) {
+      if (featureConstElement.includes(featureElement)) {
+        popupFeaturesEllement[index].classList.remove('popup__feature--hiden');
+      }
+    });
+  });
+};
+
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -86,6 +98,9 @@ var openPopupCard = function (index) {
 
   var popup = document.querySelector('.popup');
   var setupClose = popup.querySelector('.popup__close');
+  var popupFeatures = document.querySelectorAll('.popup__feature');
+
+  showpopupFeats(ads[index], popupFeatures);
 
   document.addEventListener('keydown', onPopupEscPress);
   setupClose.addEventListener('click', closePopupClick);
@@ -131,7 +146,6 @@ var renderCard = function (card) {
   cardElement.querySelector('.popup__type').innerText = card.offer.type;
   cardElement.querySelector('.popup__text--capacity').innerText = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-  cardElement.querySelector('.popup__features').innerText = card.offer.features;
   cardElement.querySelector('.popup__description').innerText = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
@@ -254,7 +268,7 @@ for (var i = 0; i < AD_NUMBER; i++) {
 }
 
 ads.forEach(function (item) {
-  console.log(item.offer.type);
+  console.log(item.offer.features);
 });
 
 mapPinMain.addEventListener('mousedown', function (evt) {
