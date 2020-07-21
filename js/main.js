@@ -15,6 +15,13 @@ var MIN_FLAT_PRICE = 1000;
 var MIN_HOUSE_PRICE = 5000;
 var MIN_PALACE_PRICE = 10000;
 
+var housingType = {
+  BUNGALO: 'bungalo',
+  FLAT: 'flat',
+  HOUSE: 'house',
+  PALACE: 'palace'
+};
+
 var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
   arrayElement.offer.features.forEach(function (featureElement) {
     ARRAT_FEATURES.forEach(function (featureConstElement, index) {
@@ -170,21 +177,21 @@ var typeAddress = function (item) {
 
 var setMinPrice = function () {
   switch (homeTypeSelect.value) {
-    case 'bungalo':
+    case housingType.BUNGALO:
       priceInput.min = MIN_BUNGALOW_PRICE;
       priceInput.placeholder = MIN_BUNGALOW_PRICE;
       break;
-    case 'flat':
+    case housingType.FLAT:
       priceInput.min = MIN_FLAT_PRICE;
       priceInput.placeholder = MIN_FLAT_PRICE;
       break;
 
-    case 'house':
+    case housingType.HOUSE:
       priceInput.min = MIN_HOUSE_PRICE;
       priceInput.placeholder = MIN_BUNGALOW_PRICE;
       break;
 
-    case 'palace':
+    case housingType.PALACE:
       priceInput.min = MIN_PALACE_PRICE;
       priceInput.placeholder = MIN_PALACE_PRICE;
       break;
