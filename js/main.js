@@ -232,7 +232,7 @@ for (var i = 0; i < AD_NUMBER; i++) {
     offer: {
       title: 'Милая, уютная квартирка в центре Токио',
       address: ADDRESS_X + ', ' + ADDRESS_Y,
-      type: ARRAY_TYPE_HOUSING[getRandomNumber(0, ARRAY_TYPE_HOUSING.length)],
+      type: ARRAY_TYPE_HOUSING[getRandomNumber(0, ARRAY_TYPE_HOUSING.length - 1)],
       price: 0,
       rooms: '3',
       guests: '3',
@@ -252,6 +252,10 @@ for (var i = 0; i < AD_NUMBER; i++) {
   ad.offer.price = getRandomNumber(getMinPrice(ad.offer.type), 11000);
   ads.push(ad);
 }
+
+ads.forEach(function (item) {
+  console.log(item.offer.type);
+});
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
