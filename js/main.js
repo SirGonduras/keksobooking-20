@@ -139,6 +139,16 @@ var createPhotosElements = function (card, arrayElement) {
   return photosFragment;
 };
 
+var showpopupFeats = function (arrayElement) {
+  arrayElement.offer.features.forEach(function (featureElement) {
+    ARRAT_FEATURES.forEach(function (featureConstElement, index) {
+      if (featureConstElement.includes(featureElement)) {
+        popupFeatures[index].classList.remove('popup__feature--hiden');
+      }
+    });
+  });
+};
+
 var renderCard = function (card) {
   var cardElement = cardTemplate.cloneNode(true);
 
@@ -356,7 +366,5 @@ fieldsets.forEach(function (item) {
 
 typeAddress(ads[0]);
 setMinPrice();
-
 var mapPinFragment = document.createDocumentFragment();
 var mapFilterFragment = document.createDocumentFragment();
-
