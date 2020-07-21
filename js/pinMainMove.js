@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  window.data.mapPinMain.addEventListener('mousedown', function (evt) {
+  var mapPinaMainMousedown = function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -61,5 +61,7 @@
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  });
+  };
+
+  window.data.mapPinMain.addEventListener('mousedown', mapPinaMainMousedown);
 })();

@@ -1,7 +1,18 @@
+
 'use strict';
 
 (function () {
   //  Functions
+  var mapPinsClick = function (evt) {
+    var pinButton = evt.target.closest('button');
+
+    if (pinButton && !pinButton.classList.contains('map__pin--main')
+        && pinButton.classList.contains('map__pin')) {
+      getPinNumber(pinButton);
+      window.card.openPopupCard(getPinNumber(pinButton));
+    }
+  };
+
   var getPinNumber = function (pin) {
     var pinNumber;
     pin.classList.forEach(function (item) {
@@ -33,15 +44,7 @@
 
     mapPins.appendChild(mapPinFragment);
 
-    mapPins.addEventListener('click', function (evt) {
-      var pinButton = evt.target.closest('button');
-
-      if (pinButton && !pinButton.classList.contains('map__pin--main')
-          && pinButton.classList.contains('map__pin')) {
-        getPinNumber(pinButton);
-        window.card.openPopupCard(getPinNumber(pinButton));
-      }
-    });
+    mapPins.addEventListener('click', mapPinsClick);
   };
 
   // Variables

@@ -34,7 +34,7 @@
   };
 
   var fistActivation = function (evt) {
-    if (evt.button === 0) {
+    if (evt.button === 0 || evt.key === 'Enter') {
       activatePage();
       typeAddress(window.data.ads[0]);
       window.pins.renderPins();
