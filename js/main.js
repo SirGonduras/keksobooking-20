@@ -16,8 +16,6 @@ var MIN_HOUSE_PRICE = 5000;
 var MIN_PALACE_PRICE = 10000;
 
 var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
-  console.log(popupFeaturesEllement);
-
   arrayElement.offer.features.forEach(function (featureElement) {
     ARRAT_FEATURES.forEach(function (featureConstElement, index) {
       if (featureConstElement.includes(featureElement)) {
@@ -174,17 +172,21 @@ var setMinPrice = function () {
   switch (homeTypeSelect.value) {
     case 'bungalo':
       priceInput.min = MIN_BUNGALOW_PRICE;
+      priceInput.placeholder = MIN_BUNGALOW_PRICE;
       break;
     case 'flat':
       priceInput.min = MIN_FLAT_PRICE;
+      priceInput.placeholder = MIN_FLAT_PRICE;
       break;
 
     case 'house':
       priceInput.min = MIN_HOUSE_PRICE;
+      priceInput.placeholder = MIN_BUNGALOW_PRICE;
       break;
 
     case 'palace':
       priceInput.min = MIN_PALACE_PRICE;
+      priceInput.placeholder = MIN_PALACE_PRICE;
       break;
   }
 };
@@ -266,10 +268,6 @@ for (var i = 0; i < AD_NUMBER; i++) {
   ad.offer.price = getRandomNumber(getMinPrice(ad.offer.type), 11000);
   ads.push(ad);
 }
-
-ads.forEach(function (item) {
-  console.log(item.offer.features);
-});
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
