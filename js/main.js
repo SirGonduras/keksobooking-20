@@ -202,18 +202,18 @@ var getMinPrice = function (homeType) {
   var minPrice = 0;
 
   switch (homeType) {
-    case 'bungalo':
+    case housingType.BUNGALO:
       minPrice = MIN_BUNGALOW_PRICE;
       break;
-    case 'flat':
+    case housingType.FLAT:
       minPrice = MIN_FLAT_PRICE;
       break;
 
-    case 'house':
+    case housingType.HOUSE:
       minPrice = MIN_HOUSE_PRICE;
       break;
 
-    case 'palace':
+    case housingType.PALACE:
       minPrice = MIN_PALACE_PRICE;
       break;
   }
