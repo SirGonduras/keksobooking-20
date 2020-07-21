@@ -239,11 +239,11 @@ fieldsets.forEach(function (item) {
 
 typeAddress(ads[0]);
 setMinPrice();
-// ads.forEach(function (item) {
-//   mapPinFragment.appendChild(renderPin(item));
-// });
+ads.forEach(function (item) {
+  mapPinFragment.appendChild(renderPin(item));
+});
 
-// mapFilterFragment.appendChild(renderCard(ads[0]));
+mapFilterFragment.appendChild(renderCard(ads[0]));
 
 mapPinsElement.appendChild(mapPinFragment);
 mapFiltersElement.appendChild(mapFilterFragment);
