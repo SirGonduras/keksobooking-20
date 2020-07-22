@@ -2,6 +2,7 @@
 
 var ARRAY_TYPE_HOUSING = ['bungalo', 'flat', 'house', 'palace'];
 var ARRAY_TIME = [' 12:00', '13:00', '14:00'];
+var ARRAT_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
 var AD_NUMBER = 8;
 var ADDRESS_X = 600;
@@ -14,8 +15,35 @@ var MIN_FLAT_PRICE = 1000;
 var MIN_HOUSE_PRICE = 5000;
 var MIN_PALACE_PRICE = 10000;
 
+var housingType = {
+  BUNGALO: 'bungalo',
+  FLAT: 'flat',
+  HOUSE: 'house',
+  PALACE: 'palace'
+};
+
+var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
+  arrayElement.offer.features.forEach(function (featureElement) {
+    ARRAT_FEATURES.forEach(function (featureConstElement, index) {
+      if (featureConstElement.includes(featureElement)) {
+        popupFeaturesEllement[index].classList.remove('popup__feature--hiden');
+      }
+    });
+  });
+};
+
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+var getRandomArray = function (arrayIn) {
+  var arrayOut = [];
+  var len = getRandomNumber(1, arrayIn.length);
+
+  for (var i = 0; i < len; i++) {
+    arrayOut[i] = ARRAT_FEATURES[i];
+  }
+  return arrayOut;
 };
 
 var renderPin = function (pin, index) {
@@ -75,6 +103,9 @@ var openPopupCard = function (index) {
 
   var popup = document.querySelector('.popup');
   var setupClose = popup.querySelector('.popup__close');
+  var popupFeatures = document.querySelectorAll('.popup__feature');
+
+  showpopupFeats(ads[index], popupFeatures);
 
   document.addEventListener('keydown', onPopupEscPress);
   setupClose.addEventListener('click', closePopupClick);
@@ -116,11 +147,10 @@ var renderCard = function (card) {
 
   cardElement.querySelector('.popup__title').innerText = card.offer.title;
   cardElement.querySelector('.popup__text--address').innerText = card.offer.address;
-  cardElement.querySelector('.popup__text--price').innerText = card.offer.price;
+  cardElement.querySelector('.popup__text--price').innerHTML = card.offer.price + '\u20bd' + '<span>/ночь</span>';
   cardElement.querySelector('.popup__type').innerText = card.offer.type;
   cardElement.querySelector('.popup__text--capacity').innerText = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-  cardElement.querySelector('.popup__features').innerText = card.offer.features;
   cardElement.querySelector('.popup__description').innerText = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
@@ -147,19 +177,23 @@ var typeAddress = function (item) {
 
 var setMinPrice = function () {
   switch (homeTypeSelect.value) {
-    case 'bungalo':
+    case housingType.BUNGALO:
       priceInput.min = MIN_BUNGALOW_PRICE;
+      priceInput.placeholder = MIN_BUNGALOW_PRICE;
       break;
-    case 'flat':
+    case housingType.FLAT:
       priceInput.min = MIN_FLAT_PRICE;
+      priceInput.placeholder = MIN_FLAT_PRICE;
       break;
 
-    case 'house':
+    case housingType.HOUSE:
       priceInput.min = MIN_HOUSE_PRICE;
+      priceInput.placeholder = MIN_BUNGALOW_PRICE;
       break;
 
-    case 'palace':
+    case housingType.PALACE:
       priceInput.min = MIN_PALACE_PRICE;
+      priceInput.placeholder = MIN_PALACE_PRICE;
       break;
   }
 };
@@ -168,18 +202,18 @@ var getMinPrice = function (homeType) {
   var minPrice = 0;
 
   switch (homeType) {
-    case 'bungalo':
+    case housingType.BUNGALO:
       minPrice = MIN_BUNGALOW_PRICE;
       break;
-    case 'flat':
+    case housingType.FLAT:
       minPrice = MIN_FLAT_PRICE;
       break;
 
-    case 'house':
+    case housingType.HOUSE:
       minPrice = MIN_HOUSE_PRICE;
       break;
 
-    case 'palace':
+    case housingType.PALACE:
       minPrice = MIN_PALACE_PRICE;
       break;
   }
@@ -221,13 +255,13 @@ for (var i = 0; i < AD_NUMBER; i++) {
     offer: {
       title: 'Милая, уютная квартирка в центре Токио',
       address: ADDRESS_X + ', ' + ADDRESS_Y,
-      type: ARRAY_TYPE_HOUSING[getRandomNumber(0, ARRAY_TYPE_HOUSING.length)],
+      type: ARRAY_TYPE_HOUSING[getRandomNumber(0, ARRAY_TYPE_HOUSING.length - 1)],
       price: 0,
       rooms: '3',
       guests: '3',
       checkin: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
       checkout: ARRAY_TIME[getRandomNumber(0, ARRAY_TIME.length)],
-      features: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'],
+      features: getRandomArray(ARRAT_FEATURES),
       description: 'Токио вас ждет',
       photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'],
     },
@@ -253,8 +287,6 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     activatePage();
-    typeAddress(ads[0]);
-    renderPins();
   }
 });
 
@@ -324,7 +356,5 @@ fieldsets.forEach(function (item) {
 
 typeAddress(ads[0]);
 setMinPrice();
-
 var mapPinFragment = document.createDocumentFragment();
 var mapFilterFragment = document.createDocumentFragment();
-

@@ -6,25 +6,6 @@
     window.data.addressInput.value = item.location.x + ', ' + item.location.y;
   };
 
-  var setMinPrice = function () {
-    switch (window.data.homeTypeSelect.value) {
-      case 'bungalo':
-        window.data.priceInput.min = window.data.MIN_BUNGALOW_PRICE;
-        break;
-      case 'flat':
-        window.data.priceInput.min = window.data.MIN_FLAT_PRICE;
-        break;
-
-      case 'house':
-        window.data.priceInput.min = window.data.MIN_HOUSE_PRICE;
-        break;
-
-      case 'palace':
-        window.data.priceInput.min = window.data.MIN_PALACE_PRICE;
-        break;
-    }
-  };
-
   var activatePage = function () {
     fieldsets.forEach(function (item) {
       item.removeAttribute('disabled');
@@ -36,17 +17,13 @@
   // Variables
   var fieldsets = document.querySelectorAll('fieldset');
 
-  window.activate = {
-    setMinPrice: setMinPrice
-  };
-
   // Code
   fieldsets.forEach(function (item) {
     item.setAttribute('disabled', 'true');
   });
 
   typeAddress(window.data.ads[0]);
-  setMinPrice();
+  window.form.setMinPrice();
 
   // Events
   window.data.mapPinMain.addEventListener('mousedown', function (evt) {

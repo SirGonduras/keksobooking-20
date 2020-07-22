@@ -2,6 +2,17 @@
 
 (function () {
   //  Functions
+  var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
+
+    arrayElement.offer.features.forEach(function (featureElement) {
+      window.data.ARRAT_FEATURES.forEach(function (featureConstElement, index) {
+        if (featureConstElement.includes(featureElement)) {
+          popupFeaturesEllement[index].classList.remove('popup__feature--hiden');
+        }
+      });
+    });
+  };
+
   var createPhotosElements = function (card, arrayElement) {
     var photosFragment = document.createDocumentFragment();
     var popupPhotoItem = popupPhoto.cloneNode(true);
@@ -20,11 +31,10 @@
 
     cardElement.querySelector('.popup__title').innerText = card.offer.title;
     cardElement.querySelector('.popup__text--address').innerText = card.offer.address;
-    cardElement.querySelector('.popup__text--price').innerText = card.offer.price;
+    cardElement.querySelector('.popup__text--price').innerHTML = card.offer.price + '\u20bd' + '<span>/ночь</span>';
     cardElement.querySelector('.popup__type').innerText = card.offer.type;
     cardElement.querySelector('.popup__text--capacity').innerText = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').innerText = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
-    cardElement.querySelector('.popup__features').innerText = card.offer.features;
     cardElement.querySelector('.popup__description').innerText = card.offer.description;
     cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
@@ -60,6 +70,7 @@
 
   var openPopupCard = function (index) {
     var popupBool = document.querySelector('.popup');
+
     if (popupBool) {
       closePopupCard();
     }
@@ -69,6 +80,9 @@
 
     var popup = document.querySelector('.popup');
     var setupClose = popup.querySelector('.popup__close');
+    var popupFeatures = document.querySelectorAll('.popup__feature');
+
+    showpopupFeats(window.data.ads[index], popupFeatures);
 
     document.addEventListener('keydown', onPopupEscPress);
     setupClose.addEventListener('click', closePopupClick);
