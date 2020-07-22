@@ -24,7 +24,8 @@
 
   typeAddress(window.data.ads[0]);
   window.form.setMinPrice();
-
+  window.form.setCapacity(window.data.ads[0].offer.rooms);
+  window.form.setRooms(window.data.ads[0].offer.rooms);
   // Events
   window.data.mapPinMain.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {

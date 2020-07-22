@@ -2,6 +2,72 @@
 
 (function () {
   // Functions
+
+  var setRooms = function (roomsNumber) {
+    switch (roomsNumber) {
+      case numberOfRooms.oneRoom:
+        roomNumberSelect.selectedIndex = 0;
+        break;
+      case numberOfRooms.twoRooms:
+        roomNumberSelect.selectedIndex = 1;
+        break;
+      case numberOfRooms.threeRooms:
+        roomNumberSelect.selectedIndex = 2;
+        break;
+      case numberOfRooms.hundredRooms:
+        roomNumberSelect.selectedIndex = 3;
+        break;
+    }
+  };
+
+  var disableCapacity = function (roomsNumber) {
+    var capacityOptions = capacitySelect.querySelectorAll('option');
+
+    capacityOptions.forEach(function (item) {
+      item.disabled = true;
+    });
+
+    switch (roomsNumber) {
+      case numberOfRooms.threeRooms:
+        capacityOptions[0].disabled = false;
+        capacityOptions[1].disabled = false;
+        capacityOptions[2].disabled = false;
+        break;
+      case numberOfRooms.twoRooms:
+        capacityOptions[1].disabled = false;
+        capacityOptions[2].disabled = false;
+        break;
+      case numberOfRooms.oneRoom:
+        capacityOptions[2].disabled = false;
+        break;
+      case numberOfRooms.hundredRooms:
+        capacityOptions[3].disabled = false;
+        break;
+    }
+  };
+
+  var setCapacity = function (roomsNumber) {
+    switch (roomsNumber) {
+      case numberOfRooms.threeRooms:
+        capacitySelect.selectedIndex = capacityType.threeGuests;
+        break;
+      case numberOfRooms.twoRooms:
+        capacitySelect.selectedIndex = capacityType.twoGuests;
+        break;
+      case numberOfRooms.oneRoom:
+        capacitySelect.selectedIndex = capacityType.oneGuest;
+        break;
+      case numberOfRooms.hundredRooms:
+        capacitySelect.selectedIndex = capacityType.notForGuests;
+        break;
+    }
+    disableCapacity(roomsNumber);
+  };
+
+  var onRoomNumberSelectSetGuests = function (evt) {
+    setCapacity(parseInt(evt.target.value, 10));
+  };
+
   var setMinPrice = function () {
     switch (window.data.homeTypeSelect.value) {
       case housingType.BUNGALO:
@@ -33,14 +99,33 @@
     PALACE: 'palace'
   };
 
-  window.form = {
-    setMinPrice: setMinPrice
+  var capacityType = {
+    threeGuests: 0,
+    twoGuests: 1,
+    oneGuest: 2,
+    notForGuests: 3
+  };
+
+  var numberOfRooms = {
+    oneRoom: 1,
+    twoRooms: 2,
+    threeRooms: 3,
+    hundredRooms: 100
   };
 
   var timeInputFieldset = window.data.form.querySelector('.ad-form__element--time');
 
   var timeInSelect = timeInputFieldset.querySelector('.timein');
   var timeOutSelect = timeInputFieldset.querySelector('.timeout');
+  var roomNumberSelect = document.getElementById('room_number');
+  var capacitySelect = document.getElementById('capacity');
+
+
+  window.form = {
+    setMinPrice: setMinPrice,
+    setCapacity: setCapacity,
+    setRooms: setRooms
+  };
 
   // Events
   window.data.titleInput.addEventListener('input', function () {
@@ -93,4 +178,7 @@
       timeOutSelect.selectedIndex = indexSelect;
     }
   });
+
+  roomNumberSelect.addEventListener('change', onRoomNumberSelectSetGuests);
+  // capacitySelect.addEventListener('change', onCapacitySelectSetGuests);
 })();
