@@ -10,6 +10,16 @@
     return parseInt(pinNumber, 10);
   };
 
+  var onMapPinsClick = function (evt) {
+    var pinButton = evt.target.closest('button');
+
+    if (pinButton && !pinButton.classList.contains('map__pin--main')
+        && pinButton.classList.contains('map__pin')) {
+      getPinNumber(pinButton);
+      window.card.openPopupCard(getPinNumber(pinButton));
+    }
+  };
+
   var renderPin = function (pin, index) {
     var pinElement = pinTemplate.cloneNode(true);
     var imgElement = pinElement.querySelector('img');
@@ -32,16 +42,7 @@
     });
 
     mapPins.appendChild(mapPinFragment);
-
-    mapPins.addEventListener('click', function (evt) {
-      var pinButton = evt.target.closest('button');
-
-      if (pinButton && !pinButton.classList.contains('map__pin--main')
-          && pinButton.classList.contains('map__pin')) {
-        getPinNumber(pinButton);
-        window.card.openPopupCard(getPinNumber(pinButton));
-      }
-    });
+    mapPins.addEventListener('click', onMapPinsClick);
   };
 
   // Variables
