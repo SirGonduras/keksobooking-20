@@ -30,17 +30,6 @@
     window.data.form.classList.remove('ad-form--disabled');
   };
 
-  var fistActivation = function (evt) {
-    if (evt.button === 0 || evt.key === 'Enter') {
-      activatePage();
-      typeAddress(window.data.ads[0]);
-      window.pins.renderPins();
-
-      window.data.mapPinMain.removeEventListener('mousedown', fistActivation);
-      window.data.mapPinMain.removeEventListener('keydown', fistActivation);
-    }
-  };
-
   // Variables
   var fieldsets = document.querySelectorAll('fieldset');
 
