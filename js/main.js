@@ -9,4 +9,3 @@
     getRandomNumber: getRandomNumber
   };
 })();
-
