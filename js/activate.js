@@ -2,27 +2,24 @@
 
 (function () {
   //  Functions
-  var typeAddress = function (item) {
-    window.data.addressInput.value = item.location.x + ', ' + item.location.y;
+  var onMapPinMainKeydown = function (evt) {
+    if (evt.key === 'Enter') {
+      activatePage();
+      typeAddress(window.data.ads[0]);
+      window.pins.renderPins();
+    }
   };
 
-  var setMinPrice = function () {
-    switch (window.data.homeTypeSelect.value) {
-      case 'bungalo':
-        window.data.priceInput.min = window.data.MIN_BUNGALOW_PRICE;
-        break;
-      case 'flat':
-        window.data.priceInput.min = window.data.MIN_FLAT_PRICE;
-        break;
-
-      case 'house':
-        window.data.priceInput.min = window.data.MIN_HOUSE_PRICE;
-        break;
-
-      case 'palace':
-        window.data.priceInput.min = window.data.MIN_PALACE_PRICE;
-        break;
+  var onMapPinMainMousedown = function (evt) {
+    if (evt.button === 0) {
+      activatePage();
+      typeAddress(window.data.ads[0]);
+      window.pins.renderPins();
     }
+  };
+
+  var typeAddress = function (item) {
+    window.data.addressInput.value = item.location.x + ', ' + item.location.y;
   };
 
   var activatePage = function () {
@@ -47,19 +44,17 @@
   // Variables
   var fieldsets = document.querySelectorAll('fieldset');
 
-  window.activate = {
-    setMinPrice: setMinPrice
-  };
-
   // Code
   fieldsets.forEach(function (item) {
     item.setAttribute('disabled', 'true');
   });
 
   typeAddress(window.data.ads[0]);
-  setMinPrice();
+  window.form.setMinPrice();
+  window.form.setCapacity(window.data.ads[0].offer.rooms);
+  window.form.setRooms(window.data.ads[0].offer.rooms);
 
   // Events
-  window.data.mapPinMain.addEventListener('mousedown', fistActivation);
-  window.data.mapPinMain.addEventListener('keydown', fistActivation);
+  window.data.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
+  window.data.mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
 })();
