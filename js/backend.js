@@ -1,7 +1,8 @@
 'use strict';
 (function () {
   var ServerUrl = {
-    LOAD: 'https://javascript.pages.academy/keksobooking/data'
+    LOAD: 'https://javascript.pages.academy/keksobooking/data',
+    UPLOAD: 'https://javascript.pages.academy/keksobooking'
   };
 
   var MessageText = {
@@ -39,7 +40,12 @@
     createXhr('GET', ServerUrl.LOAD, onLoad, onError).send();
   };
 
+  var upload = function (onLoad, onError, data) {
+    createXhr('POST', ServerUrl.UPLOAD, onLoad, onError).send(data);
+  };
+
   window.backend = {
-    load: load
+    load: load,
+    upload: upload
   };
 })();
