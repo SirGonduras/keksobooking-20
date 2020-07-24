@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var OFFSET_X = 32;
+  var OFFSET_Y = 84;
+
+  var typePinAdress = function (x, y) {
+    window.data.addressInput.value = x + ', ' + y;
+  };
+
   var mapPinaMainMousedown = function (evt) {
     evt.preventDefault();
 
@@ -42,6 +49,8 @@
 
       window.data.mapPinMain.style.left = moveX + 'px';
       window.data.mapPinMain.style.top = moveY + 'px';
+
+      typePinAdress(moveX + OFFSET_X, moveY + OFFSET_Y);
     };
 
     var onMouseUp = function (upEvt) {
