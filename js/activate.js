@@ -4,6 +4,12 @@
   //  Functions
   var onLoadSuccess = function (loadArray) {
     window.data.ads = loadArray;
+    window.data.addressInput.readOnly = 'true';
+    // сonsole.log(window.data.ads);
+    typeAddress(window.data.ads[0]);
+    window.form.setMinPrice();
+    window.form.setCapacity(window.data.ads[0].offer.rooms);
+    window.form.setRooms(window.data.ads[0].offer.rooms);
   };
 
   var onLoadError = function (errorMessage) {
@@ -28,7 +34,7 @@
   var onMapPinMainMousedown = function (evt) {
     if (evt.button === 0) {
       activatePage();
-      typeAddress(window.data.ads[0]);
+      // typeAddress(window.data.ads[0]);
       window.pins.renderPins();
     }
   };
@@ -51,12 +57,8 @@
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
   // Code
+  window.backend.load(onLoadSuccess, onLoadError);
 
-  window.data.addressInput.readOnly = 'true';
-  typeAddress(window.data.ads[0]);
-  window.form.setMinPrice();
-  window.form.setCapacity(window.data.ads[0].offer.rooms);
-  window.form.setRooms(window.data.ads[0].offer.rooms);
 
   // Events
   window.data.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
