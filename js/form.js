@@ -141,29 +141,16 @@
     }
   };
 
-  var onSuccessClick = function () {
-    closeSuccess();
-  };
-
-  var closeSuccess = function () {
-    // success.classList.add('hidden');
-    document.removeEventListener('keydown', onSuccessEscDown);
-    // success.removeEventListener('click', onSuccessClick);
-  };
-
-  var onSuccessEscDown = function (evt) {
-    window.utils.onEscDown(evt, closeSuccess);
-  };
-
-  var onSubmitSuccess = function (evt) {
-    evt.preventDefault();
-    window.backend.save(new FormData(adForm), function () {
-    });
+  var onSubmitSuccess = function () {
+    openSuccessPopup();
     window.activate.deactivatePage();
+    window.pins.removePins();
   };
 
   var onSubmitError = function (errorMessage) {
-    window.utils.renderErrorMessage(errorMessage);
+    openErrorPopup(errorMessage);
+    window.activate.deactivatePage();
+    window.pins.removePins();
   };
 
   var onAdFormSubmit = function (evt) {
@@ -203,8 +190,9 @@
     document.addEventListener('click', onSuccessDivClick);
   };
 
-  var renderErrorPopup = function () {
+  var renderErrorPopup = function (errorMessage) {
     var errorElement = errorTemplate.cloneNode(true);
+    errorElement.querySelector('.error__message').innerText = errorMessage;
     adForm.appendChild(errorElement);
   };
 
@@ -232,8 +220,8 @@
     window.errorDiv.remove();
   };
 
-  var openErrorPopup = function () {
-    renderErrorPopup();
+  var openErrorPopup = function (errorMessage) {
+    renderErrorPopup(errorMessage);
 
     window.errorDiv = document.querySelector('.error');
     window.errorButton = document.querySelector('.error__button');
@@ -287,7 +275,7 @@
   };
 
   // Events
-  window.form.adFormSubmit.addEventListener('submit', window.form.onAdFormSubmit);
+  adForm.addEventListener('submit', onAdFormSubmit);
   window.data.titleInput.addEventListener('input', onTitleInputInput);
   window.data.homeTypeSelect.addEventListener('change', onHomeTypeSelectChange);
   window.data.priceInput.addEventListener('invalid', onPriceInputInvalid);
