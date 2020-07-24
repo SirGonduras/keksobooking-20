@@ -38,6 +38,7 @@
     item.setAttribute('disabled', 'true');
   });
 
+  window.data.addressInput.readOnly = 'true';
   typeAddress(window.data.ads[0]);
   window.form.setMinPrice();
   window.form.setCapacity(window.data.ads[0].offer.rooms);
