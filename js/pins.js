@@ -1,7 +1,9 @@
+
 'use strict';
 
 (function () {
   //  Functions
+
   var getPinNumber = function (pin) {
     var pinNumber;
     pin.classList.forEach(function (item) {
