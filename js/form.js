@@ -141,6 +141,40 @@
     }
   };
 
+  var onSuccessClick = function () {
+    closeSuccess();
+  };
+
+  var closeSuccess = function () {
+    success.classList.add('hidden');
+    document.removeEventListener('keydown', onSuccessEscDown);
+    success.removeEventListener('click', onSuccessClick);
+  };
+
+  var onSuccessEscDown = function (evt) {
+    window.utils.onEscDown(evt, closeSuccess);
+  };
+
+  var onSubmitSuccess = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adForm), function () {
+      console.log('send');
+    });
+    window.activate.deactivatePage();
+  };
+
+  var onSubmitError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
+
+  var onAdFormSubmit = function (evt) {
+    evt.preventDefault();
+    console.log('kek');
+    var formData = new FormData(adForm);
+    console.log(adForm);
+    window.backend.upload(onSubmitSuccess, onSubmitError, formData);
+  };
+
   // Variables
   var housingType = {
     BUNGALO: 'bungalo',
@@ -165,16 +199,20 @@
 
   var timeInputFieldset = window.data.form.querySelector('.ad-form__element--time');
 
+  var adForm = document.querySelector('.ad-form');
   var timeInSelect = timeInputFieldset.querySelector('.timein');
   var timeOutSelect = timeInputFieldset.querySelector('.timeout');
   var roomNumberSelect = document.getElementById('room_number');
   var capacitySelect = document.getElementById('capacity');
-
+  var adFormSubmit = document.querySelector('.ad-form__submit');
+  var success = document.querySelector('.success');
 
   window.form = {
     setMinPrice: setMinPrice,
     setCapacity: setCapacity,
-    setRooms: setRooms
+    setRooms: setRooms,
+    adFormSubmit: adFormSubmit,
+    onAdFormSubmit: onAdFormSubmit
   };
 
   // Events

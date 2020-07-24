@@ -19,7 +19,10 @@
     fieldsets.forEach(function (item) {
       item.setAttribute('disabled', 'true');
     });
+    window.data.map.classList.add('map--faded');
+    window.data.form.classList.add('ad-form--disabled');
     mapFiltersContainer.setAttribute('disabled', 'true');
+    window.form.adFormSubmit.removeEventListener('submit', window.form.onAdFormSubmit);
   };
 
   var onMapPinMainKeydown = function (evt) {
@@ -48,6 +51,7 @@
     mapFiltersContainer.removeAttribute('disabled');
     window.data.map.classList.remove('map--faded');
     window.data.form.classList.remove('ad-form--disabled');
+    window.form.adFormSubmit.addEventListener('submit', window.form.onAdFormSubmit);
   };
 
   // Variables
@@ -58,6 +62,9 @@
   deactivatePage();
   window.backend.load(onLoadSuccess, onLoadError);
 
+  window.activate = {
+    deactivatePage: deactivatePage
+  };
 
   // Events
   window.data.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
