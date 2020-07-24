@@ -2,6 +2,14 @@
 
 (function () {
   //  Functions
+  var onLoadSuccess = function (loadArray) {
+    window.data.ads = loadArray;
+  };
+
+  var onLoadError = function (errorMessage) {
+    window.utils.renderErrorMessage(errorMessage);
+  };
+
   var deactivatePage = function () {
     fieldsets.forEach(function (item) {
       item.setAttribute('disabled', 'true');
@@ -33,6 +41,7 @@
     fieldsets.forEach(function (item) {
       item.removeAttribute('disabled');
     });
+    mapFiltersContainer.removeAttribute('disabled');
     window.data.map.classList.remove('map--faded');
     window.data.form.classList.remove('ad-form--disabled');
   };
@@ -43,6 +52,7 @@
 
   // Code
 
+  window.backend.load(onLoadSuccess, onLoadError);
   deactivatePage();
   typeAddress(window.data.ads[0]);
   window.form.setMinPrice();
