@@ -10,7 +10,6 @@
 
   var mapPinaMainMousedown = function (evt) {
     evt.preventDefault();
-    console.log('kek');
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY

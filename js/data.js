@@ -2,11 +2,8 @@
 
 (function () {
   //  Consants
-  var ARRAY_TYPE_HOUSING = ['bungalo', 'flat', 'house', 'palace'];
-  var ARRAY_TIME = [' 12:00', '13:00', '14:00'];
   var ARRAT_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
-  var AD_NUMBER = 8;
   var ADDRESS_X = 600;
   var ADDRESS_Y = 350;
   var MIN_LENGTH_TITLE = 30;
@@ -17,43 +14,8 @@
   var MIN_HOUSE_PRICE = 5000;
   var MIN_PALACE_PRICE = 10000;
 
-  //  Functions
-  var getRandomArray = function (arrayIn) {
-    var arrayOut = [];
-    var len = window.main.getRandomNumber(1, arrayIn.length);
-
-    for (var i = 0; i < len; i++) {
-      arrayOut[i] = ARRAT_FEATURES[i];
-    }
-    return arrayOut;
-  };
-
-  var getMinPrice = function (homeType) {
-    var minPrice = 0;
-
-    switch (homeType) {
-      case 'bungalo':
-        minPrice = MIN_BUNGALOW_PRICE;
-        break;
-      case 'flat':
-        minPrice = MIN_FLAT_PRICE;
-        break;
-
-      case 'house':
-        minPrice = MIN_HOUSE_PRICE;
-        break;
-
-      case 'palace':
-        minPrice = MIN_PALACE_PRICE;
-        break;
-    }
-
-    return minPrice;
-  };
-
   // Variables
   var map = document.querySelector('.map');
-  var mapDomRect = map.getBoundingClientRect();
 
   var mapPinMain = document.querySelector('.map__pin--main');
 

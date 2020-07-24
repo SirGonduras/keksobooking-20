@@ -18,7 +18,7 @@
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-      console.log(xhr.response);
+
       if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
       } else {
