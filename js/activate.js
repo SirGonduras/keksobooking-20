@@ -2,6 +2,13 @@
 
 (function () {
   //  Functions
+  var deactivatePage = function () {
+    fieldsets.forEach(function (item) {
+      item.setAttribute('disabled', 'true');
+    });
+    mapFiltersContainer.setAttribute('disabled', 'true');
+  };
+
   var onMapPinMainKeydown = function (evt) {
     if (evt.key === 'Enter') {
       activatePage();
@@ -32,12 +39,11 @@
 
   // Variables
   var fieldsets = document.querySelectorAll('fieldset');
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
 
   // Code
-  fieldsets.forEach(function (item) {
-    item.setAttribute('disabled', 'true');
-  });
 
+  deactivatePage();
   typeAddress(window.data.ads[0]);
   window.form.setMinPrice();
   window.form.setCapacity(window.data.ads[0].offer.rooms);
