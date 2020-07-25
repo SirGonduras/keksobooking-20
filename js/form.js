@@ -144,13 +144,11 @@
   var onSubmitSuccess = function () {
     openSuccessPopup();
     window.activate.deactivatePage();
-    window.pins.removePins();
   };
 
   var onSubmitError = function (errorMessage) {
     openErrorPopup(errorMessage);
     window.activate.deactivatePage();
-    window.pins.removePins();
   };
 
   var onAdFormSubmit = function (evt) {
@@ -231,6 +229,10 @@
     document.addEventListener('click', onErrorDocumentClick);
   };
 
+  var onAdFormResetClick = function () {
+    window.activate.deactivatePage();
+  };
+
   // Variables
   var housingType = {
     BUNGALO: 'bungalo',
@@ -261,6 +263,7 @@
   var roomNumberSelect = document.getElementById('room_number');
   var capacitySelect = document.getElementById('capacity');
   var adFormSubmit = document.querySelector('.ad-form__submit');
+  var adFormReset = document.querySelector('.ad-form__reset');
 
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -276,6 +279,7 @@
   };
 
   // Events
+  adFormReset.addEventListener('click', onAdFormResetClick);
   adForm.addEventListener('submit', onAdFormSubmit);
   window.data.titleInput.addEventListener('input', onTitleInputInput);
   window.data.homeTypeSelect.addEventListener('change', onHomeTypeSelectChange);
