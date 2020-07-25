@@ -3,7 +3,6 @@
 (function () {
   //  Functions
   var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
-
     arrayElement.offer.features.forEach(function (featureElement) {
       window.data.ARRAT_FEATURES.forEach(function (featureConstElement, index) {
         if (featureConstElement.includes(featureElement)) {

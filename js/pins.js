@@ -38,6 +38,17 @@
     return pinElement;
   };
 
+  var removePins = function () {
+    mapPins.removeEventListener('click', onMapPinsClick);
+    var pins = mapPins.querySelectorAll('.map__pin');
+
+    pins.forEach(function (item) {
+      if (!item.classList.contains('map__pin--main')) {
+        item.remove();
+      }
+    });
+  };
+
   var renderPins = function () {
     window.data.ads.forEach(function (item, index) {
       mapPinFragment.appendChild(renderPin(item, index));
@@ -53,6 +64,7 @@
   var mapPins = window.data.map.querySelector('.map__pins');
 
   window.pins = {
-    renderPins: renderPins
+    renderPins: renderPins,
+    removePins: removePins
   };
 })();

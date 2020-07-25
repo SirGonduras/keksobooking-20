@@ -141,6 +141,96 @@
     }
   };
 
+  var onSubmitSuccess = function () {
+    openSuccessPopup();
+    window.activate.deactivatePage();
+    window.pins.removePins();
+  };
+
+  var onSubmitError = function (errorMessage) {
+    openErrorPopup(errorMessage);
+    window.activate.deactivatePage();
+    window.pins.removePins();
+  };
+
+  var onAdFormSubmit = function (evt) {
+    evt.preventDefault();
+    var formData = new FormData(adForm);
+    window.backend.upload(onSubmitSuccess, onSubmitError, formData);
+  };
+
+  var renderSuccessPopup = function () {
+    var successElement = successTemplate.cloneNode(true);
+    adForm.appendChild(successElement);
+  };
+
+  var onSuccessDivKeydown = function (evt) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closeSuccessPopup();
+    }
+  };
+
+  var onSuccessDivClick = function (evt) {
+    evt.preventDefault();
+    closeSuccessPopup();
+  };
+
+  var closeSuccessPopup = function () {
+    document.removeEventListener('keydown', onSuccessDivKeydown);
+    document.removeEventListener('click', onSuccessDivClick);
+    window.successDiv.remove();
+  };
+
+  var openSuccessPopup = function () {
+    renderSuccessPopup();
+
+    window.successDiv = document.querySelector('.success');
+    document.addEventListener('keydown', onSuccessDivKeydown);
+    document.addEventListener('click', onSuccessDivClick);
+  };
+
+  var renderErrorPopup = function (errorMessage) {
+    var errorElement = errorTemplate.cloneNode(true);
+    errorElement.querySelector('.error__message').innerText = errorMessage;
+    adForm.appendChild(errorElement);
+  };
+
+  var onErrorDocumentKeydown = function (evt) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closeErrorPopup();
+    }
+  };
+
+  var onErrorDocumentClick = function (evt) {
+    evt.preventDefault();
+    closeErrorPopup();
+  };
+
+  var onErrorButtonClick = function (evt) {
+    evt.preventDefault();
+    closeErrorPopup();
+  };
+
+  var closeErrorPopup = function () {
+    window.errorButton.removeEventListener('click', onErrorButtonClick);
+    document.removeEventListener('keydown', onErrorDocumentKeydown);
+    document.removeEventListener('click', onErrorDocumentClick);
+    window.errorDiv.remove();
+  };
+
+  var openErrorPopup = function (errorMessage) {
+    renderErrorPopup(errorMessage);
+
+    window.errorDiv = document.querySelector('.error');
+    window.errorButton = document.querySelector('.error__button');
+
+    window.errorButton.addEventListener('click', onErrorButtonClick);
+    document.addEventListener('keydown', onErrorDocumentKeydown);
+    document.addEventListener('click', onErrorDocumentClick);
+  };
+
   // Variables
   var housingType = {
     BUNGALO: 'bungalo',
@@ -165,19 +255,28 @@
 
   var timeInputFieldset = window.data.form.querySelector('.ad-form__element--time');
 
+  var adForm = document.querySelector('.ad-form');
   var timeInSelect = timeInputFieldset.querySelector('.timein');
   var timeOutSelect = timeInputFieldset.querySelector('.timeout');
   var roomNumberSelect = document.getElementById('room_number');
   var capacitySelect = document.getElementById('capacity');
+  var adFormSubmit = document.querySelector('.ad-form__submit');
+
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
 
   window.form = {
+    adForm: adForm,
     setMinPrice: setMinPrice,
     setCapacity: setCapacity,
-    setRooms: setRooms
+    setRooms: setRooms,
+    adFormSubmit: adFormSubmit,
+    onAdFormSubmit: onAdFormSubmit
   };
 
   // Events
+  adForm.addEventListener('submit', onAdFormSubmit);
   window.data.titleInput.addEventListener('input', onTitleInputInput);
   window.data.homeTypeSelect.addEventListener('change', onHomeTypeSelectChange);
   window.data.priceInput.addEventListener('invalid', onPriceInputInvalid);
