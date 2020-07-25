@@ -2,6 +2,9 @@
 
 (function () {
   var LEFT_BUTTON = 0;
+  var START_POSITION_PIN_MAIN_X = '570px';
+  var START_POSITION_PIN_MAIN_Y = '375px';
+
   //  Functions
   var onLoadSuccess = function (loadArray) {
     window.data.ads = loadArray;
@@ -20,6 +23,9 @@
     fieldsets.forEach(function (item) {
       item.setAttribute('disabled', 'true');
     });
+    window.data.mapPinMain.style.left = START_POSITION_PIN_MAIN_X;
+    window.data.mapPinMain.style.top = START_POSITION_PIN_MAIN_Y;
+
     window.data.map.classList.add('map--faded');
     window.data.form.classList.add('ad-form--disabled');
     mapFiltersContainer.setAttribute('disabled', 'true');
