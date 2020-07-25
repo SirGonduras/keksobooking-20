@@ -267,6 +267,7 @@
 
 
   window.form = {
+    adForm: adForm,
     setMinPrice: setMinPrice,
     setCapacity: setCapacity,
     setRooms: setRooms,
