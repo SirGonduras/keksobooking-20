@@ -3,7 +3,6 @@
 
 (function () {
   //  Functions
-
   var getPinNumber = function (pin) {
     var pinNumber;
     pin.classList.forEach(function (item) {
@@ -49,8 +48,8 @@
     });
   };
 
-  var renderPins = function () {
-    window.data.ads.forEach(function (item, index) {
+  var renderPins = function (arrayAds) {
+    arrayAds.forEach(function (item, index) {
       mapPinFragment.appendChild(renderPin(item, index));
     });
 

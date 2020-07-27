@@ -144,13 +144,11 @@
   var onSubmitSuccess = function () {
     openSuccessPopup();
     window.activate.deactivatePage();
-    window.pins.removePins();
   };
 
   var onSubmitError = function (errorMessage) {
     openErrorPopup(errorMessage);
     window.activate.deactivatePage();
-    window.pins.removePins();
   };
 
   var onAdFormSubmit = function (evt) {
@@ -192,8 +190,9 @@
 
   var renderErrorPopup = function (errorMessage) {
     var errorElement = errorTemplate.cloneNode(true);
+
     errorElement.querySelector('.error__message').innerText = errorMessage;
-    adForm.appendChild(errorElement);
+    notice.appendChild(errorElement);
   };
 
   var onErrorDocumentKeydown = function (evt) {
@@ -231,6 +230,10 @@
     document.addEventListener('click', onErrorDocumentClick);
   };
 
+  var onAdFormResetClick = function () {
+    window.activate.deactivatePage();
+  };
+
   // Variables
   var housingType = {
     BUNGALO: 'bungalo',
@@ -254,6 +257,7 @@
   };
 
   var timeInputFieldset = window.data.form.querySelector('.ad-form__element--time');
+  var notice = document.querySelector('.notice');
 
   var adForm = document.querySelector('.ad-form');
   var timeInSelect = timeInputFieldset.querySelector('.timein');
@@ -261,6 +265,7 @@
   var roomNumberSelect = document.getElementById('room_number');
   var capacitySelect = document.getElementById('capacity');
   var adFormSubmit = document.querySelector('.ad-form__submit');
+  var adFormReset = document.querySelector('.ad-form__reset');
 
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -272,10 +277,12 @@
     setCapacity: setCapacity,
     setRooms: setRooms,
     adFormSubmit: adFormSubmit,
-    onAdFormSubmit: onAdFormSubmit
+    onAdFormSubmit: onAdFormSubmit,
+    openErrorPopup: openErrorPopup
   };
 
   // Events
+  adFormReset.addEventListener('click', onAdFormResetClick);
   adForm.addEventListener('submit', onAdFormSubmit);
   window.data.titleInput.addEventListener('input', onTitleInputInput);
   window.data.homeTypeSelect.addEventListener('change', onHomeTypeSelectChange);
