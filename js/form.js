@@ -190,8 +190,9 @@
 
   var renderErrorPopup = function (errorMessage) {
     var errorElement = errorTemplate.cloneNode(true);
+
     errorElement.querySelector('.error__message').innerText = errorMessage;
-    adForm.appendChild(errorElement);
+    notice.appendChild(errorElement);
   };
 
   var onErrorDocumentKeydown = function (evt) {
@@ -256,6 +257,7 @@
   };
 
   var timeInputFieldset = window.data.form.querySelector('.ad-form__element--time');
+  var notice = document.querySelector('.notice');
 
   var adForm = document.querySelector('.ad-form');
   var timeInSelect = timeInputFieldset.querySelector('.timein');
@@ -275,7 +277,8 @@
     setCapacity: setCapacity,
     setRooms: setRooms,
     adFormSubmit: adFormSubmit,
-    onAdFormSubmit: onAdFormSubmit
+    onAdFormSubmit: onAdFormSubmit,
+    openErrorPopup: openErrorPopup
   };
 
   // Events

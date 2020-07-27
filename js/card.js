@@ -94,6 +94,7 @@
   var popupPhoto = cardTemplate.querySelector('.popup__photo');
 
   window.card = {
-    openPopupCard: openPopupCard
+    openPopupCard: openPopupCard,
+    closePopupCard: closePopupCard
   };
 })();
