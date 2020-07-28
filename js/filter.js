@@ -49,9 +49,8 @@
       return true;
     } else if (typeSelect.value === item.offer.type) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   var definePriceType = function (price) {
@@ -61,9 +60,8 @@
     } else if (price >= priceRange.MIDDLE.MIN
         && price < priceRange.MIDDLE.MAX) {
       return PriceType.MIDDLE;
-    } else {
-      return PriceType.HIGH;
     }
+    return PriceType.HIGH;
   };
 
   var filtrationByPrice = function (item) {
@@ -72,9 +70,8 @@
       return true;
     } else if (priceSelect.value.toString() === priceLelev) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   var filtrationByRooms = function (item) {
@@ -82,9 +79,8 @@
       return true;
     } else if (roomsSelect.value <= item.offer.rooms) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   var filtrationByGuests = function (item) {
@@ -97,9 +93,8 @@
         || guestsSelect.value.toString() === '2')
         && guestsSelect.value <= item.offer.guests) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   var filtrationByFeatures = function (item) {
@@ -114,9 +109,8 @@
       && filtrationByGuests(item) && filtrationByFeatures(item);
     if (filtratedItem) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   };
 
   var onMapFiltersChange = debounce(function () {
@@ -133,7 +127,8 @@
     }
 
     if (!document.querySelector('.map--faded')) {
-      window.pins.renderPins(window.data.filteredAds.slice(0, PINS_NUMBER));
+      window.pins.renderPins(window.data.filteredAds);
+      // window.pins.renderPins(window.data.filteredAds.slice(0, PINS_NUMBER));
     }
   });
 
