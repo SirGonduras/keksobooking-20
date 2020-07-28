@@ -148,7 +148,6 @@
 
   var onSubmitError = function (errorMessage) {
     openErrorPopup(errorMessage);
-    window.activate.deactivatePage();
   };
 
   var onAdFormSubmit = function (evt) {
@@ -159,7 +158,7 @@
 
   var renderSuccessPopup = function () {
     var successElement = successTemplate.cloneNode(true);
-    adForm.appendChild(successElement);
+    main.appendChild(successElement);
   };
 
   var onSuccessDivKeydown = function (evt) {
@@ -171,7 +170,9 @@
 
   var onSuccessDivClick = function (evt) {
     evt.preventDefault();
-    closeSuccessPopup();
+    if (evt.target !== window.successMassege) {
+      closeSuccessPopup();
+    }
   };
 
   var closeSuccessPopup = function () {
@@ -184,6 +185,8 @@
     renderSuccessPopup();
 
     window.successDiv = document.querySelector('.success');
+    window.successMassege = window.successDiv.querySelector('.success__message');
+
     document.addEventListener('keydown', onSuccessDivKeydown);
     document.addEventListener('click', onSuccessDivClick);
   };
@@ -192,7 +195,7 @@
     var errorElement = errorTemplate.cloneNode(true);
 
     errorElement.querySelector('.error__message').innerText = errorMessage;
-    notice.appendChild(errorElement);
+    main.appendChild(errorElement);
   };
 
   var onErrorDocumentKeydown = function (evt) {
@@ -204,7 +207,9 @@
 
   var onErrorDocumentClick = function (evt) {
     evt.preventDefault();
-    closeErrorPopup();
+    if (evt.target !== window.errorMessage) {
+      closeErrorPopup();
+    }
   };
 
   var onErrorButtonClick = function (evt) {
@@ -223,7 +228,8 @@
     renderErrorPopup(errorMessage);
 
     window.errorDiv = document.querySelector('.error');
-    window.errorButton = document.querySelector('.error__button');
+    window.errorButton = window.errorDiv.querySelector('.error__button');
+    window.errorMessage = window.errorDiv.querySelector('.error__message');
 
     window.errorButton.addEventListener('click', onErrorButtonClick);
     document.addEventListener('keydown', onErrorDocumentKeydown);
@@ -256,8 +262,8 @@
     hundredRooms: 100
   };
 
+  var main = document.querySelector('main');
   var timeInputFieldset = window.data.form.querySelector('.ad-form__element--time');
-  var notice = document.querySelector('.notice');
 
   var adForm = document.querySelector('.ad-form');
   var timeInSelect = timeInputFieldset.querySelector('.timein');

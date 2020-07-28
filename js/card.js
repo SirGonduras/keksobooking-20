@@ -53,7 +53,8 @@
     }
   };
 
-  var closePopupClick = function () {
+  var closePopupClick = function (evt) {
+    evt.preventDefault();
     closePopupCard();
   };
 

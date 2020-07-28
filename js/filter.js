@@ -120,6 +120,8 @@
   };
 
   var onMapFiltersChange = debounce(function () {
+    console.log('onMapFiltersChange');
+    console.log(window.data.ads);
     window.data.filteredAds = window.data.ads.slice();
     window.data.filteredAds = window.data.filteredAds.filter(filtrationItem);
     window.pins.removePins();
@@ -142,5 +144,6 @@
   window.filter = {
     onMapFiltersChange: onMapFiltersChange,
     startFiltration: startFiltration,
+    mapFilters: mapFilters
   };
 })();
