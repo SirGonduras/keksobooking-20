@@ -2,7 +2,7 @@
 
 (function () {
   var PINS_NUMBER = 5;
-  var DEBOUNCE_INTERVAL = 300;
+  var DEBOUNCE_INTERVAL = 500;
   var priceRange = {
     LOW: {
       MIN: 0,
