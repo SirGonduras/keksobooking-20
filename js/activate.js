@@ -29,6 +29,7 @@
     fieldsets.forEach(function (item) {
       item.setAttribute('disabled', 'true');
     });
+    // hi
     window.data.mapPinMain.style.left = START_POSITION_PIN_MAIN_X;
     window.data.mapPinMain.style.top = START_POSITION_PIN_MAIN_Y;
     window.form.adForm.reset();
