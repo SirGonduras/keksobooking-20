@@ -20,7 +20,7 @@
     console.log('onLoadSuccess');
 
     window.data.addressInput.readOnly = 'true';
-    typeAddress(window.data.ads[0]);
+    window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     deactivatePage();
     setStartData();
     window.filter.mapFilters.addEventListener('change', window.filter.onMapFiltersChange);
@@ -28,10 +28,6 @@
 
   var onLoadError = function (errorMessage) {
     window.form.openErrorPopup(errorMessage);
-  };
-
-  var typeAddress = function (item) {
-    window.data.addressInput.value = item.location.x + ', ' + item.location.y;
   };
 
   var deactivatePage = function () {
@@ -46,7 +42,7 @@
     window.form.adForm.setAttribute('disabled', 'true');
     window.pins.removePins();
     setStartData();
-    typeAddress(window.data.ads[0]);
+    window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     window.data.map.classList.add('map--faded');
     window.data.form.classList.add('ad-form--disabled');
     mapFiltersContainer.setAttribute('disabled', 'true');
@@ -55,7 +51,7 @@
   var onMapPinMainKeydown = function (evt) {
     if (evt.key === 'Enter') {
       activatePage();
-      typeAddress(window.data.ads[0]);
+      window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     }
   };
 

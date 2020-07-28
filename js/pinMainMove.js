@@ -15,10 +15,6 @@
     }
   };
 
-  var typePinAdress = function (x, y) {
-    window.data.addressInput.value = x + ', ' + y;
-  };
-
   var mapPinaMainMousedown = function (evt) {
     evt.preventDefault();
     var startCoords = {
@@ -60,7 +56,7 @@
       window.data.mapPinMain.style.left = moveX + 'px';
       window.data.mapPinMain.style.top = moveY + 'px';
 
-      typePinAdress(moveX + OFFSET_X, moveY + OFFSET_Y);
+      window.writeArdress.typePinAdress(moveX + OFFSET_X, moveY + OFFSET_Y);
     };
 
     var onMouseUp = function (upEvt) {
