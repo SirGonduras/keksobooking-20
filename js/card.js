@@ -2,7 +2,7 @@
 
 (function () {
   //  Functions
-  var showpopupFeats = function (arrayElement, popupFeaturesEllement) {
+  var showPopupFeats = function (arrayElement, popupFeaturesEllement) {
     arrayElement.offer.features.forEach(function (featureElement) {
       window.data.ARRAT_FEATURES.forEach(function (featureConstElement, index) {
         if (featureConstElement.includes(featureElement)) {
@@ -80,7 +80,7 @@
     var setupClose = popup.querySelector('.popup__close');
     var popupFeatures = document.querySelectorAll('.popup__feature');
 
-    showpopupFeats(window.data.filteredAds[index], popupFeatures);
+    showPopupFeats(window.data.filteredAds[index], popupFeatures);
 
     document.addEventListener('keydown', onPopupEscPress);
     setupClose.addEventListener('click', closePopupClick);
