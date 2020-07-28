@@ -114,8 +114,6 @@
   };
 
   var onMapFiltersChange = debounce(function () {
-    console.log('onMapFiltersChange');
-    console.log(window.data.ads);
     window.data.filteredAds = window.data.ads.slice();
     window.data.filteredAds = window.data.filteredAds.filter(filtrationItem);
     window.pins.removePins();
@@ -127,8 +125,7 @@
     }
 
     if (!document.querySelector('.map--faded')) {
-      window.pins.renderPins(window.data.filteredAds);
-      // window.pins.renderPins(window.data.filteredAds.slice(0, PINS_NUMBER));
+      window.pins.renderPins(window.data.filteredAds.slice(0, PINS_NUMBER));
     }
   });
 

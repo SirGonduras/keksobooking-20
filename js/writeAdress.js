@@ -2,7 +2,6 @@
 
 (function () {
   var typePinAdress = function (x, y) {
-    console.log('typePinAdress');
     window.data.addressInput.value = x + ', ' + y;
   };
 

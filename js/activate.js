@@ -7,8 +7,6 @@
 
   //  Functions
   var setStartData = function () {
-    console.log('setStartData');
-    console.log(window.data.ads);
     window.form.setMinPrice();
     window.form.setCapacity(window.data.ads[0].offer.rooms);
     window.form.setRooms(window.data.ads[0].offer.rooms);
@@ -17,22 +15,33 @@
 
   var onLoadSuccess = function (loadArray) {
     window.data.ads = loadArray;
-    console.log('onLoadSuccess');
 
     window.data.addressInput.readOnly = 'true';
     window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
-    deactivatePage();
-    setStartData();
     window.filter.mapFilters.addEventListener('change', window.filter.onMapFiltersChange);
+
+    fieldsets.forEach(function (item) {
+      item.removeAttribute('disabled');
+    });
+    window.form.adForm.removeAttribute('disabled');
+    mapFiltersContainer.removeAttribute('disabled');
+    window.data.map.classList.remove('map--faded');
+    window.data.form.classList.remove('ad-form--disabled');
+
+    setStartData();
   };
 
   var onLoadError = function (errorMessage) {
     window.form.openErrorPopup(errorMessage);
   };
 
-  var deactivatePage = function () {
+  var formsReset = function () {
     window.form.adForm.reset();
     window.filter.mapFilters.reset();
+  };
+
+  var deactivatePage = function () {
+    formsReset();
     fieldsets.forEach(function (item) {
       item.setAttribute('disabled', 'true');
     });
@@ -51,7 +60,6 @@
   var onMapPinMainKeydown = function (evt) {
     if (evt.key === 'Enter') {
       activatePage();
-      window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     }
   };
 
@@ -62,15 +70,7 @@
   };
 
   var activatePage = function () {
-    fieldsets.forEach(function (item) {
-      item.removeAttribute('disabled');
-    });
-    window.form.adForm.removeAttribute('disabled');
-    mapFiltersContainer.removeAttribute('disabled');
-    window.data.map.classList.remove('map--faded');
-    window.data.form.classList.remove('ad-form--disabled');
-
-    setStartData();
+    window.backend.load(onLoadSuccess, onLoadError);
   };
 
   // Variables
@@ -78,7 +78,6 @@
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
   // Code
-  window.backend.load(onLoadSuccess, onLoadError);
 
   window.activate = {
     deactivatePage: deactivatePage
