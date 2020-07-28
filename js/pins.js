@@ -13,14 +13,9 @@
 
   var onMapPinsClick = function (evt) {
     var pinButton = evt.target.closest('button');
-    console.log('click');
-    console.log(window.data.filteredAds);
 
     if (pinButton && !pinButton.classList.contains('map__pin--main')
         && pinButton.classList.contains('map__pin')) {
-        console.log('номер кнопки');
-      console.log(pinButton);
-      console.log(getPinNumber(pinButton));
       window.card.openPopupCard(getPinNumber(pinButton));
     }
   };

@@ -13,7 +13,6 @@
     window.form.setMinPrice();
     window.form.setCapacity(window.data.ads[0].offer.rooms);
     window.form.setRooms(window.data.ads[0].offer.rooms);
-    console.log('load');
     window.filter.onMapFiltersChange();
   };
 
