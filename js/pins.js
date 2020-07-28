@@ -16,11 +16,20 @@
     return parseInt(pinNumber, 10);
   };
 
+  var addClassActive = function (pin) {
+    var activePin = document.querySelector('.map__pin--active');
+
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+    }
+    pin.classList.add('map__pin--active');
+  };
+
   var onMapPinsClick = function (evt) {
     var pinButton = evt.target.closest('button');
-
     if (pinButton && !pinButton.classList.contains('map__pin--main')
         && pinButton.classList.contains('map__pin')) {
+      addClassActive(pinButton);
       window.card.openPopupCard(getPinNumber(pinButton));
     }
   };
