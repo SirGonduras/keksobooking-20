@@ -73,15 +73,14 @@
     if (popupBool) {
       closePopupCard();
     }
-
-    mapFilterFragment.appendChild(renderCard(window.data.ads[index]));
+    mapFilterFragment.appendChild(renderCard(window.data.filteredAds[index]));
     mapFiltersElement.appendChild(mapFilterFragment);
 
     var popup = document.querySelector('.popup');
     var setupClose = popup.querySelector('.popup__close');
     var popupFeatures = document.querySelectorAll('.popup__feature');
 
-    showpopupFeats(window.data.ads[index], popupFeatures);
+    showpopupFeats(window.data.filteredAds[index], popupFeatures);
 
     document.addEventListener('keydown', onPopupEscPress);
     setupClose.addEventListener('click', closePopupClick);

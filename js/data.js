@@ -25,6 +25,7 @@
   var priceInput = form.querySelector('#price');
   var homeTypeSelect = form.querySelector('#type');
   var ads = [];
+  var filteredAds = [];
 
   window.data = {
     ADDRESS_X: ADDRESS_X,
@@ -44,7 +45,8 @@
     homeTypeSelect: homeTypeSelect,
     mapPinMain: mapPinMain,
     map: map,
-    ads: ads
+    ads: ads,
+    filteredAds: filteredAds
   };
 
   // Code

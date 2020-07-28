@@ -13,10 +13,14 @@
 
   var onMapPinsClick = function (evt) {
     var pinButton = evt.target.closest('button');
+    console.log('click');
+    console.log(window.data.filteredAds);
 
     if (pinButton && !pinButton.classList.contains('map__pin--main')
         && pinButton.classList.contains('map__pin')) {
-      getPinNumber(pinButton);
+        console.log('номер кнопки');
+      console.log(pinButton);
+      console.log(getPinNumber(pinButton));
       window.card.openPopupCard(getPinNumber(pinButton));
     }
   };
@@ -33,11 +37,11 @@
     pinElement.style.top = (pin.location.y - 70) + 'px';
     imgElement.src = pin.author.avatar;
     imgElement.alt = pin.offer.title;
-
     return pinElement;
   };
 
   var removePins = function () {
+    mapPins = window.data.map.querySelector('.map__pins');
     mapPins.removeEventListener('click', onMapPinsClick);
     var pins = mapPins.querySelectorAll('.map__pin');
 
@@ -48,8 +52,8 @@
     });
   };
 
-  var renderPins = function (arrayAds) {
-    arrayAds.forEach(function (item, index) {
+  var renderPins = function (ads) {
+    ads.forEach(function (item, index) {
       mapPinFragment.appendChild(renderPin(item, index));
     });
 
@@ -58,6 +62,7 @@
   };
 
   // Variables
+
   var mapPinFragment = document.createDocumentFragment();
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = window.data.map.querySelector('.map__pins');
