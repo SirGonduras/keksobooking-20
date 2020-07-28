@@ -114,7 +114,6 @@
     window.data.filteredAds = window.data.ads.slice();
     window.data.filteredAds = window.data.filteredAds.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
     window.pins.removePins();
-    console.log(window.data.filteredAds);
 
     var popupBool = document.querySelector('.popup');
 
