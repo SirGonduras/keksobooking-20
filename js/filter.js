@@ -132,13 +132,8 @@
     }
   });
 
-  var startFiltration = function () {
-    mapFilters.addEventListener('change', onMapFiltersChange);
-  };
-
   window.filter = {
     onMapFiltersChange: onMapFiltersChange,
-    startFiltration: startFiltration,
     mapFilters: mapFilters
   };
 })();

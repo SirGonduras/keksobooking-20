@@ -23,6 +23,7 @@
     typeAddress(window.data.ads[0]);
     deactivatePage();
     setStartData();
+    window.filter.mapFilters.addEventListener('change', window.filter.onMapFiltersChange);
   };
 
   var onLoadError = function (errorMessage) {
@@ -55,14 +56,12 @@
     if (evt.key === 'Enter') {
       activatePage();
       typeAddress(window.data.ads[0]);
-      window.filter.startFiltration();
     }
   };
 
   var onMapPinMainMousedown = function (evt) {
     if (evt.button === LEFT_BUTTON) {
       activatePage();
-      window.filter.startFiltration();
     }
   };
 
