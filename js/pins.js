@@ -2,6 +2,11 @@
 'use strict';
 
 (function () {
+  var pinOffset = {
+    X: 25,
+    Y: 70
+  };
+
   //  Functions
   var getPinNumber = function (pin) {
     var pinNumber;
@@ -28,8 +33,8 @@
 
     pinElement.classList.add(mapPinCalssName);
     pinElement.tabindex = 0;
-    pinElement.style.left = (pin.location.x - 25) + 'px';
-    pinElement.style.top = (pin.location.y - 70) + 'px';
+    pinElement.style.left = (pin.location.x - pinOffset.X) + 'px';
+    pinElement.style.top = (pin.location.y - pinOffset.Y) + 'px';
     imgElement.src = pin.author.avatar;
     imgElement.alt = pin.offer.title;
     return pinElement;

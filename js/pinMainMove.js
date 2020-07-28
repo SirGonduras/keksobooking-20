@@ -4,6 +4,17 @@
   var OFFSET_X = 32;
   var OFFSET_Y = 84;
 
+  var cardsLimit = {
+    X: {
+      MIN: -32,
+      MAX: 1167
+    },
+    Y: {
+      MIN: 0,
+      MAX: 620
+    }
+  };
+
   var typePinAdress = function (x, y) {
     window.data.addressInput.value = x + ', ' + y;
   };
@@ -34,16 +45,16 @@
       var moveX = window.data.mapPinMain.offsetLeft - shift.x;
       var moveY = window.data.mapPinMain.offsetTop - shift.y;
 
-      if (moveX < -32) {
-        moveX = -32;
-      } else if (moveX > 1167) {
-        moveX = 1167;
+      if (moveX < cardsLimit.X.MIN) {
+        moveX = cardsLimit.X.MIN;
+      } else if (moveX > cardsLimit.X.MAX) {
+        moveX = cardsLimit.X.MAX;
       }
 
-      if (moveY < 0) {
-        moveY = 0;
-      } else if (moveY > 620) {
-        moveY = 620;
+      if (moveY < cardsLimit.Y.MIN) {
+        moveY = cardsLimit.Y.MIN;
+      } else if (moveY > cardsLimit.Y.MAX) {
+        moveY = cardsLimit.Y.MAX;
       }
 
       window.data.mapPinMain.style.left = moveX + 'px';
