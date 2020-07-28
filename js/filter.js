@@ -17,7 +17,7 @@
     }
   };
 
-  var priceType = {
+  var PriceType = {
     LOW: 'low',
     MIDDLE: 'middle',
     HIGH: 'high',
@@ -57,19 +57,18 @@
   var definePriceType = function (price) {
     if (price >= priceRange.LOW.MIN
       && price < priceRange.LOW.MAX) {
-      return priceType.LOW;
+      return PriceType.LOW;
     } else if (price >= priceRange.MIDDLE.MIN
         && price < priceRange.MIDDLE.MAX) {
-      return priceType.MIDDLE;
+      return PriceType.MIDDLE;
     } else {
-      return priceType.HIGH;
+      return PriceType.HIGH;
     }
   };
 
   var filtrationByPrice = function (item) {
-
     var priceLelev = definePriceType(item.offer.price);
-    if (priceSelect.value.toString() === priceType.ANY) {
+    if (priceSelect.value.toString() === PriceType.ANY) {
       return true;
     } else if (priceSelect.value.toString() === priceLelev) {
       return true;
@@ -110,9 +109,19 @@
     });
   };
 
+  var filtrationItem = function (item) {
+    var filtratedItem = filtrationByType(item) && filtrationByPrice(item) && filtrationByRooms(item)
+      && filtrationByGuests(item) && filtrationByFeatures(item);
+    if (filtratedItem) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   var onMapFiltersChange = debounce(function () {
     window.data.filteredAds = window.data.ads.slice();
-    window.data.filteredAds = window.data.filteredAds.filter(filtrationByType).filter(filtrationByPrice).filter(filtrationByRooms).filter(filtrationByGuests).filter(filtrationByFeatures);
+    window.data.filteredAds = window.data.filteredAds.filter(filtrationItem);
     window.pins.removePins();
 
     var popupBool = document.querySelector('.popup');
@@ -128,7 +137,6 @@
   });
 
   var startFiltration = function () {
-    onMapFiltersChange();
     mapFilters.addEventListener('change', onMapFiltersChange);
   };
 
