@@ -57,7 +57,6 @@
   };
 
   // Variables
-
   var mapPinFragment = document.createDocumentFragment();
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var mapPins = window.data.map.querySelector('.map__pins');

@@ -133,7 +133,6 @@
     if (!document.querySelector('.map--faded')) {
       window.pins.renderPins(window.data.filteredAds.slice(0, PINS_NUMBER));
     }
-
   });
 
   var startFiltration = function () {
@@ -144,5 +143,4 @@
     onMapFiltersChange: onMapFiltersChange,
     startFiltration: startFiltration,
   };
-
 })();

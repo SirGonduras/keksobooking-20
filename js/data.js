@@ -48,35 +48,4 @@
     ads: ads,
     filteredAds: filteredAds
   };
-
-  // Code
-  // for (var i = 0; i < AD_NUMBER; i++) {
-  //   var ad = {
-  //     author: {
-  //       avatar: 'img/avatars/user0' + (i + 1) + '.png'
-  //     },
-
-  //     offer: {
-  //       title: 'Милая, уютная квартирка в центре Токио',
-  //       address: ADDRESS_X + ', ' + ADDRESS_Y,
-  //       type: ARRAY_TYPE_HOUSING[window.main.getRandomNumber(0, ARRAY_TYPE_HOUSING.length - 1)],
-  //       price: 0,
-  //       rooms: 100,
-  //       guests: 1,
-  //       checkin: ARRAY_TIME[window.main.getRandomNumber(0, ARRAY_TIME.length - 1)],
-  //       checkout: ARRAY_TIME[window.main.getRandomNumber(0, ARRAY_TIME.length - 1)],
-  //       features: getRandomArray(ARRAT_FEATURES),
-  //       description: 'Токио вас ждет',
-  //       photos: ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg'],
-  //     },
-
-  //     location: {
-  //       x: window.main.getRandomNumber(0, mapDomRect.width),
-  //       y: window.main.getRandomNumber(130, 630)
-  //     }
-  //   };
-
-  //   ad.offer.price = window.main.getRandomNumber(getMinPrice(ad.offer.type), 11000);
-  //   ads.push(ad);
-  // }
 })();
