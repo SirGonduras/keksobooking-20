@@ -29,8 +29,8 @@
     var pinButton = evt.target.closest('button');
     if (pinButton && !pinButton.classList.contains('map__pin--main')
         && pinButton.classList.contains('map__pin')) {
-      addClassActive(pinButton);
       window.card.openPopupCard(getPinNumber(pinButton));
+      addClassActive(pinButton);
     }
   };
 
