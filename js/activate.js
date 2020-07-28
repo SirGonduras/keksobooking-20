@@ -13,6 +13,7 @@
     window.form.setMinPrice();
     window.form.setCapacity(window.data.ads[0].offer.rooms);
     window.form.setRooms(window.data.ads[0].offer.rooms);
+    window.filter.onMapFiltersChange();
   };
 
   var onLoadError = function (errorMessage) {
@@ -58,6 +59,7 @@
     mapFiltersContainer.removeAttribute('disabled');
     window.data.map.classList.remove('map--faded');
     window.data.form.classList.remove('ad-form--disabled');
+    window.filter.onMapFiltersChange();
   };
 
   // Variables
