@@ -12,7 +12,7 @@
     window.form.setRooms(window.data.ads[0].offer.rooms);
     window.filter.onMapFiltersChange();
   };
-
+  // hi
   var onLoadSuccess = function (loadArray) {
     window.data.ads = loadArray;
     window.data.addressInput.readOnly = 'true';
