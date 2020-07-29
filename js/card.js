@@ -65,6 +65,7 @@
     document.removeEventListener('keydown', onPopupEscPress);
     setupClose.removeEventListener('click', closePopupClick);
 
+    window.pins.removeClassActive();
     popup.remove();
   };
 
