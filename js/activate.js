@@ -15,7 +15,7 @@
 
   var onLoadSuccess = function (loadArray) {
     window.data.ads = loadArray;
-
+    console.log(window.data.ads);
     window.data.addressInput.readOnly = 'true';
     window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     window.filter.mapFilters.addEventListener('change', window.filter.onMapFiltersChange);

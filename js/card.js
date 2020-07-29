@@ -68,6 +68,20 @@
     popup.remove();
   };
 
+  var disableCardElements = function (popup, cardData) {
+    if (cardData.offer.features.length === 0) {
+      popup.querySelector('.popup__features').style.display = 'none';
+    }
+
+    if (cardData.offer.photos.length === 0) {
+      popup.querySelector('.popup__photos').style.display = 'none';
+    }
+
+    if (cardData.offer.description === '') {
+      popup.querySelector('.popup__description').style.display = 'none';
+    }
+  };
+
   var openPopupCard = function (index) {
     var popupBool = document.querySelector('.popup');
 
@@ -82,6 +96,7 @@
     var popupFeatures = document.querySelectorAll('.popup__feature');
 
     showPopupFeats(window.data.filteredAds[index], popupFeatures);
+    disableCardElements(popup, window.data.filteredAds[index]);
 
     document.addEventListener('keydown', onPopupEscPress);
     setupClose.addEventListener('click', closePopupClick);
