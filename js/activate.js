@@ -15,7 +15,6 @@
 
   var onLoadSuccess = function (loadArray) {
     window.data.ads = loadArray;
-    console.log(window.data.ads);
     window.data.addressInput.readOnly = 'true';
     window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     window.filter.mapFilters.addEventListener('change', window.filter.onMapFiltersChange);
@@ -28,6 +27,8 @@
     window.data.form.classList.remove('ad-form--disabled');
     setStartData();
     window.filter.changeFilterFormDisabledStatus(false);
+    window.data.mapPinMain.removeEventListener('mousedown', onMapPinMainMousedown);
+    window.data.mapPinMain.removeEventListener('keydown', onMapPinMainKeydown);
   };
 
   var onLoadError = function (errorMessage) {
@@ -54,6 +55,8 @@
     window.data.map.classList.add('map--faded');
     window.data.form.classList.add('ad-form--disabled');
     window.filter.changeFilterFormDisabledStatus('true');
+    window.data.mapPinMain.addEventListener('mousedown', onMapPinMainMousedown);
+    window.data.mapPinMain.addEventListener('keydown', onMapPinMainKeydown);
   };
 
   var onMapPinMainKeydown = function (evt) {
