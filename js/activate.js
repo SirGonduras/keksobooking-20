@@ -39,10 +39,10 @@
     fieldsets.forEach(function (item) {
       item.setAttribute('disabled', 'true');
     });
+    window.form.adForm.setAttribute('disabled', 'true');
 
     window.data.mapPinMain.style.left = START_POSITION_PIN_MAIN_X;
     window.data.mapPinMain.style.top = START_POSITION_PIN_MAIN_Y;
-    window.form.adForm.setAttribute('disabled', 'true');
     window.pins.removePins();
     setStartData();
     window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
@@ -77,9 +77,14 @@
   };
 
   // Variables
-  var fieldsets = document.querySelectorAll('fieldset');
+  var notice = document.querySelector('.notice');
+  var fieldsets = notice.querySelectorAll('fieldset');
 
   window.filter.changeFilterFormDisabledStatus('true');
+  fieldsets.forEach(function (item) {
+    item.setAttribute('disabled', 'true');
+  });
+  window.form.adForm.setAttribute('disabled', 'true');
 
   window.activate = {
     deactivatePage: deactivatePage

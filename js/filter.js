@@ -30,6 +30,7 @@
   var roomsSelect = mapFilters.querySelector('#housing-rooms');
   var guestsSelect = mapFilters.querySelector('#housing-guests');
   var featuresFieldset = mapFilters.querySelector('#housing-features');
+  var housingFeaturesInputs = featuresFieldset.querySelectorAll('input');
 
   var changeFilterFormDisabledStatus = function (status) {
     if (status) {
@@ -38,12 +39,18 @@
       roomsSelect.setAttribute('disabled', status.toString());
       guestsSelect.setAttribute('disabled', status.toString());
       featuresFieldset.setAttribute('disabled', status.toString());
+      housingFeaturesInputs.forEach(function (item) {
+        item.setAttribute('disabled', status.toString());
+      });
     } else {
       typeSelect.removeAttribute('disabled');
       priceSelect.removeAttribute('disabled');
       roomsSelect.removeAttribute('disabled');
       guestsSelect.removeAttribute('disabled');
       featuresFieldset.removeAttribute('disabled');
+      housingFeaturesInputs.forEach(function (item) {
+        item.removeAttribute('disabled');
+      });
     }
   };
 
