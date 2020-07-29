@@ -9,10 +9,8 @@
 
   //  Functions
   var getPinNumber = function (pin) {
-    var pinNumber;
-    pin.classList.forEach(function (item) {
-      pinNumber = item.match(/\d+/);
-    });
+    var pinNumber = pin.classList[1].match(/\d+/);
+
     return parseInt(pinNumber, 10);
   };
 

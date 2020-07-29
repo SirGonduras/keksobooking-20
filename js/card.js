@@ -24,7 +24,6 @@
 
   var renderCard = function (card) {
     var cardElement = cardTemplate.cloneNode(true);
-
     var photosDiv = cardElement.querySelector('.popup__photos');
     var photo = cardElement.querySelector('.popup__photo');
 
