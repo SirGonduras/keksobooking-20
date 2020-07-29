@@ -24,11 +24,10 @@
       item.removeAttribute('disabled');
     });
     window.form.adForm.removeAttribute('disabled');
-    mapFiltersContainer.removeAttribute('disabled');
     window.data.map.classList.remove('map--faded');
     window.data.form.classList.remove('ad-form--disabled');
-
     setStartData();
+    window.filter.changeFilterFormDisabledStatus(false);
   };
 
   var onLoadError = function (errorMessage) {
@@ -54,7 +53,7 @@
     window.writeArdress.typePinAdress(window.data.ads[0].location.x, window.data.ads[0].location.y);
     window.data.map.classList.add('map--faded');
     window.data.form.classList.add('ad-form--disabled');
-    mapFiltersContainer.setAttribute('disabled', 'true');
+    window.filter.changeFilterFormDisabledStatus('true');
   };
 
   var onMapPinMainKeydown = function (evt) {
@@ -75,9 +74,8 @@
 
   // Variables
   var fieldsets = document.querySelectorAll('fieldset');
-  var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-  // Code
+  window.filter.changeFilterFormDisabledStatus('true');
 
   window.activate = {
     deactivatePage: deactivatePage

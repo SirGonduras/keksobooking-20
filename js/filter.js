@@ -31,6 +31,22 @@
   var guestsSelect = mapFilters.querySelector('#housing-guests');
   var featuresFieldset = mapFilters.querySelector('#housing-features');
 
+  var changeFilterFormDisabledStatus = function (status) {
+    if (status) {
+      typeSelect.setAttribute('disabled', status.toString());
+      priceSelect.setAttribute('disabled', status.toString());
+      roomsSelect.setAttribute('disabled', status.toString());
+      guestsSelect.setAttribute('disabled', status.toString());
+      featuresFieldset.setAttribute('disabled', status.toString());
+    } else {
+      typeSelect.removeAttribute('disabled');
+      priceSelect.removeAttribute('disabled');
+      roomsSelect.removeAttribute('disabled');
+      guestsSelect.removeAttribute('disabled');
+      featuresFieldset.removeAttribute('disabled');
+    }
+  };
+
   var debounce = function (cd) {
     var lastTimeout = null;
     return function () {
@@ -131,6 +147,7 @@
 
   window.filter = {
     onMapFiltersChange: onMapFiltersChange,
-    mapFilters: mapFilters
+    mapFilters: mapFilters,
+    changeFilterFormDisabledStatus: changeFilterFormDisabledStatus
   };
 })();
